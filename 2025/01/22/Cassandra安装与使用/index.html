@@ -19,24 +19,30 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是SaToken？  Sa-Token是一个轻量级Java权限认证框架，官网地址：https:&#x2F;&#x2F;sa-token.cc&#x2F; ，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题。  SaToken功能  Sa-Token目前主要五大功能模块：登录认证、权限认证、单点登录、OAuth2.0、微服务鉴权。  使用配置  在po">
+    <meta name="description" content="什么是 Cassandra ?Apache Cassandra 是一个开源的分布式 NoSQL（Not Only SQL）数据库管理系统，专为处理大规模数据量和高写入频率的工作负载而设计。它最初由 Facebook 开发，后来贡献给了 Apache 软件基金会，成为了 Apache 的一个顶级项目。 Cassandra 结合了 Google Bigtable 的数据模型和 Amazon Dynam">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SaToken使用">
-<meta property="og:url" content="http://example.com/2025/01/22/SaToken%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="Cassandra安装与使用">
+<meta property="og:url" content="http://example.com/2025/01/22/Cassandra%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="什么是SaToken？  Sa-Token是一个轻量级Java权限认证框架，官网地址：https:&#x2F;&#x2F;sa-token.cc&#x2F; ，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题。  SaToken功能  Sa-Token目前主要五大功能模块：登录认证、权限认证、单点登录、OAuth2.0、微服务鉴权。  使用配置  在po">
+<meta property="og:description" content="什么是 Cassandra ?Apache Cassandra 是一个开源的分布式 NoSQL（Not Only SQL）数据库管理系统，专为处理大规模数据量和高写入频率的工作负载而设计。它最初由 Facebook 开发，后来贡献给了 Apache 软件基金会，成为了 Apache 的一个顶级项目。 Cassandra 结合了 Google Bigtable 的数据模型和 Amazon Dynam">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122132955471.png">
-<meta property="article:published_time" content="2025-01-22T06:58:53.000Z">
-<meta property="article:modified_time" content="2025-01-22T12:08:35.730Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122202326486.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122202537481.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203134492.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203548357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203650219.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203905346.png">
+<meta property="article:published_time" content="2025-01-22T12:41:45.000Z">
+<meta property="article:modified_time" content="2025-01-22T12:45:26.695Z">
 <meta property="article:author" content="Bloom">
 <meta property="article:tag" content="开发">
+<meta property="article:tag" content="Cassandra">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122132955471.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122202326486.png">
   
   
   
-  <title>SaToken使用 - Bloomivy</title>
+  <title>Cassandra安装与使用 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SaToken使用"></span>
+            <span id="subtitle" data-typed-text="Cassandra安装与使用"></span>
           
         </div>
 
@@ -229,8 +235,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-22 14:58" pubdate>
-          2025年1月22日 下午
+        <time datetime="2025-01-22 20:41" pubdate>
+          2025年1月22日 晚上
         </time>
       </span>
     
@@ -241,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          949 字
+          2.2k 字
         
       </span>
     
@@ -252,7 +258,7 @@
         
         
         
-          8 分钟
+          19 分钟
         
       </span>
     
@@ -289,53 +295,150 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SaToken使用</h1>
+            <h1 id="seo-header">Cassandra安装与使用</h1>
             
             
               <div class="markdown-body">
                 
-                <ol>
-<li>什么是SaToken？</li>
-</ol>
-<p>Sa-Token是一个轻量级Java权限认证框架，官网地址：<a target="_blank" rel="noopener" href="https://sa-token.cc/">https://sa-token.cc/</a> ，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题。</p>
-<ol start="2">
-<li>SaToken功能</li>
-</ol>
-<p>Sa-Token目前主要五大功能模块：登录认证、权限认证、单点登录、OAuth2.0、微服务鉴权。<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122132955471.png" srcset="/img/loading.gif" lazyload alt="Loading" title="SaToken结构图"></p>
-<ol start="3">
-<li>使用配置</li>
-</ol>
-<p>在<code>pom.xml</code>文件引入对应依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Sa-Token 权限认证，在线文档：https://sa-token.cc --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.dev33<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sa-token-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.39.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>在application.yml中填写相关配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml">############## Sa-Token 配置 (文档: https://sa-token.cc) ##############<br>sa-token:<br>  # token 名称（同时也是 cookie 名称）<br>  token-name: satoken<br>  # token 有效期（单位：秒） 默认30天，-1 代表永久有效<br>  timeout: 2592000<br>  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结<br>  active-timeout: -1<br>  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）<br>  is-concurrent: true<br>  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）<br>  is-share: true<br>  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）<br>  token-style: uuid<br>  # 是否输出操作日志<br>  is-log: true<br></code></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>自定义 Token 生成风格与请求格式</li>
-</ol>
-<p>在 SaToken 中，Token 风格可以通过<code> sa-token.token-style</code> 配置项来定制，默认的生成策略是 uuid 风格，值类似于 <code>623368f0-ae5e-4475-a53f-93e4225f16ae</code></p>
-<p>SaToken 内置支持的风格有多种，大致如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">/</span> <span class="hljs-number">1</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=uuid</span>    <span class="hljs-string">——</span> <span class="hljs-string">uuid风格</span> <span class="hljs-string">(默认风格)</span><br><span class="hljs-string">&quot;623368f0-ae5e-4475-a53f-93e4225f16ae&quot;</span><br><br><span class="hljs-string">//</span> <span class="hljs-number">2</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=simple-uuid</span>    <span class="hljs-string">——</span> <span class="hljs-string">同上，uuid风格,</span> <span class="hljs-string">只不过去掉了中划线</span><br><span class="hljs-string">&quot;6fd4221395024b5f87edd34bc3258ee8&quot;</span><br><br><span class="hljs-string">//</span> <span class="hljs-number">3</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=random-32</span>    <span class="hljs-string">——</span> <span class="hljs-string">随机32位字符串</span><br><span class="hljs-string">&quot;qEjyPsEA1Bkc9dr8YP6okFr5umCZNR6W&quot;</span><br><br><span class="hljs-string">//</span> <span class="hljs-number">4</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=random-64</span>    <span class="hljs-string">——</span> <span class="hljs-string">随机64位字符串</span><br><span class="hljs-string">&quot;v4ueNLEpPwMtmOPMBtOOeIQsvP8z9gkMgIVibTUVjkrNrlfra5CGwQkViDjO8jcc&quot;</span><br><br><span class="hljs-string">//</span> <span class="hljs-number">5</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=random-128</span>    <span class="hljs-string">——</span> <span class="hljs-string">随机128位字符串</span><br><span class="hljs-string">&quot;nojYPmcEtrFEaN0Otpssa8I8jpk8FO53UcMZkCP9qyoHaDbKS6dxoRPky9c6QlftQ0pdzxRGXsKZmUSrPeZBOD6kJFfmfgiRyUmYWcj4WU4SSP2ilakWN1HYnIuX0Olj&quot;</span><br><br><span class="hljs-string">//</span> <span class="hljs-number">6</span><span class="hljs-string">.</span> <span class="hljs-string">token-style=tik</span>    <span class="hljs-string">——</span> <span class="hljs-string">tik风格</span><br><span class="hljs-string">&quot;gr_SwoIN0MC1ewxHX_vfCW3BothWDZMMtx__&quot;</span><br></code></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>自定义Token请求风格</li>
-</ol>
-<p>比较通用、规范的 Token 请求格式：<br><code>Authorization = Bearer + 空格 + 令牌值</code></p>
-<p>修改SaToken配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">sa-token:</span><br>  <span class="hljs-comment"># token 名称（同时也是 cookie 名称）</span><br>  <span class="hljs-attr">token-name:</span> <span class="hljs-string">Authorization</span><br>  <span class="hljs-comment"># token前缀</span><br>  <span class="hljs-attr">token-prefix:</span> <span class="hljs-string">Bearer</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>在我们已经将 SaToken 权限认证框架整合进了项目。但是有个问题，当调用 <code>TestController</code> 中的登录接口 <code>/user/doLogin?username=zhang&amp;password=123456</code> ，登录成功后再重启项目，调用 <code>/user/isLogin</code> 接口，验证一下用户是否登录的时候，会发现登录已经失效了。</p>
-<h2 id="登录失效的原因？"><a href="#登录失效的原因？" class="headerlink" title="登录失效的原因？"></a>登录失效的原因？</h2><p>Sa-Token 默认将数据保存在内存中，此模式读写速度最快，且避免了序列化与反序列化带来的性能消耗，但是此模式也有一些缺点，比如：</p>
+                <h1 id="什么是-Cassandra"><a href="#什么是-Cassandra" class="headerlink" title="什么是 Cassandra ?"></a>什么是 Cassandra ?</h1><p>Apache Cassandra 是一个开源的分布式 NoSQL（Not Only SQL）数据库管理系统，专为处理大规模数据量和高写入频率的工作负载而设计。它最初由 Facebook 开发，后来贡献给了 Apache 软件基金会，成为了 Apache 的一个顶级项目。</p>
+<p>Cassandra 结合了 Google Bigtable 的数据模型和 Amazon Dynamo 的完全分布式架构，提供了以下关键特性：</p>
 <ul>
-<li><p>重启后数据会丢失。</p>
+<li><p>高可用性：Cassandra 是一个无单点故障的系统，它通过数据复制和一致性级别选择，确保即使在节点失败的情况下数据仍然可访问。</p>
 </li>
-<li><p>无法在分布式环境中共享数据。</p>
+<li><p>水平可扩展性：Cassandra 能够通过添加更多节点到集群中轻松扩展，无需停机，这使得它能够处理不断增长的数据量和用户负载。</p>
+</li>
+<li><p>分布式数据存储：数据在集群中的多个节点上分布存储，每个节点都是平等的，没有主从之分，这有助于提高性能和可靠性。</p>
+</li>
+<li><p>最终一致性：Cassandra 允许开发者选择数据的一致性和可用性之间的权衡，通过可配置的一致性级别，可以在强一致性和高可用性之间找到合适的平衡点。</p>
+</li>
+<li><p>数据模型：Cassandra 使用列族（column-family）的数据模型，允许以宽列的方式存储数据，非常适合存储半结构化或非结构化数据。</p>
+</li>
+<li><p>数据压缩和索引：Cassandra 支持数据压缩和创建二级索引，以提高存储效率和查询性能。</p>
+</li>
+<li><p>多数据中心复制：Cassandra 支持跨多个地理区域的数据中心复制，以实现数据的地理分布和灾难恢复。</p>
 </li>
 </ul>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>为此，Sa-Token 提供了扩展接口，你可以轻松将会话数据存储在一些专业的缓存中间件上（比如 Redis）， 做到重启数据不丢失，而且保证分布式环境下多节点的会话一致性。</p>
-<p>项目<code>pom.xml</code>引入依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml">    <span class="hljs-comment">&lt;!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.dev33<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sa-token-redis-jackson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;sa-token.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.dev33<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sa-token-redis-jackson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- Redis 连接池 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.commons<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-pool2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>Cassandra 被广泛应用于需要处理大量数据和高写入负载的场景，例如社交网络、物联网（IoT）、实时数据分析和推荐系统等。由于其强大的可扩展性和高可用性，Cassandra 成为了许多大型企业如 Netflix、Digg、Twitter 等的选择。</p>
+<h2 id="Cassandra安装"><a href="#Cassandra安装" class="headerlink" title="Cassandra安装"></a>Cassandra安装</h2><h3 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h3><p>执行如下命令，开始拉取 <code>cassandra</code> 最新的镜像。</p>
+<p><code>docker pull cassandra:latest</code></p>
+<p>拉取成功后，可执行 <code>docker images</code> 命令查看本地已下载的镜像，确认一下 <code>cassandra</code> 是否下载成功。</p>
+<h3 id="准备挂载的文件夹"><a href="#准备挂载的文件夹" class="headerlink" title="准备挂载的文件夹"></a>准备挂载的文件夹</h3><p>在 <code>E:/docker</code> 路径下，创建一个 <code>/cassandra</code> 文件夹，用于等会启动容器时，将需要持久化的数据挂载到宿主机中，防止容器重启时数据丢失。</p>
+<h3 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h3><p>前置工作完成后，执行如下命令，运行一个 <code>cassandra</code> 容器：</p>
+<p><code>docker run --name cassandra -d -p 9042:9042 -v E:\docker\cassandra\data:/var/lib/cassandra cassandra:latest</code></p>
+<p>各参数含义：</p>
+<ul>
+<li><p><code>docker run</code>: 这是 Docker 用来启动一个新的容器的命令。</p>
+</li>
+<li><p><code>--name cassandra</code>: 这个选项指定了容器的名称为 “cassandra”。给容器命名可以帮助你在将来更容易地识别和管理它。</p>
+</li>
+<li><p><code>-d</code>: 这个标志表示在后台（守护进程模式）运行容器，不会阻塞你的终端会话。</p>
+</li>
+<li><p><code>-p 9042:9042</code>: 这个选项进行了端口映射，将宿主机的 9042 端口映射到容器内的 9042 端口。这意味着你可以在宿主机上通过 9042 端口访问 Cassandra 容器提供的服务。Cassandra 默认使用 9042 端口作为 CQL shell 的接入点。</p>
+</li>
+<li><p><code>-v E:\docker\cassandra\data:/var/lib/cassandra</code>: 这是一个卷（volume）映射，将宿主机上的目录 <code>E:\docker\cassandra\data</code> 挂载到容器内的 <code>/var/lib/cassandra</code> 目录。这个目录是 Cassandra 用来存储数据和日志的地方。通过这种方式，即使容器被删除，数据也会保留在宿主机上，因为数据存储在持久化的卷中。</p>
+</li>
+<li><p><code>cassandra:latest</code>: 这指定了要使用的 Docker 镜像。在这里，镜像是 Cassandra 的官方镜像，并且使用了 latest 标签，意味着拉取 Cassandra 的最新版本镜像。</p>
+</li>
+</ul>
+<p>执行完毕后，执行 <code>docker ps</code> 命令，可查看本地正在运行中的 <code>Docker</code> 容器，确认一下 <code>cassandra</code> 是否启动成功了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122202326486.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<h2 id="Cassandra使用"><a href="#Cassandra使用" class="headerlink" title="Cassandra使用"></a>Cassandra使用</h2><ol>
+<li>打开cqlsh命令行</li>
+</ol>
+<p>cassandra 容器运行成功后，执行如下命令，可进入到容器中：</p>
+<p><code>docker exec -it cassandra /bin/sh</code></p>
+<p>接着，执行如下命令，可打开 cqlsh 命令行工具：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">cqlsh</span><br>或<br>cqlsh <span class="hljs-number">127.0.0.1</span> <span class="hljs-number">9042</span><br></code></pre></td></tr></table></figure>
+<p>什么是 cqlsh ?</p>
+<p>cqlsh 是 Cassandra Query Language Shell 的缩写，它是一个命令行工具，允许你向 Cassandra 数据库发送查询、创建表、插入数据、检索数据等。</p>
+<p>若如下图所示，提示 Connected to Test Cluster at 127.0.0.1:9042 , 则说明已经成功连接上了 cassandra。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122202537481.png" srcset="/img/loading.gif" lazyload alt="Loading" title="cassandra"></p>
+<h2 id="CQL基本命令"><a href="#CQL基本命令" class="headerlink" title="CQL基本命令"></a>CQL基本命令</h2><p>Cassandra 基本概念<br>在学习 CQL 命令之前，先理解一下 Cassandra 中几个基本概念：</p>
+<ul>
+<li><p>节点（Node）：Cassandra 集群中的每个服务器称为一个节点。每个节点都存储数据，并且相互之间没有主从关系，所有节点都是对等的。</p>
+</li>
+<li><p>集群（Cluster）：由多个节点组成的分布式系统称为集群。集群中的节点共同工作，处理读写请求并存储数据。</p>
+</li>
+<li><p>数据中心（Data Center）：集群中的节点可以分布在多个数据中心，每个数据中心包含若干个节点。数据中心的划分有助于实现跨地域的高可用性。</p>
+</li>
+<li><p>键空间（Keyspace）：键空间是一个逻辑容器，用于管理多个表，可以理解为 MySQL 中的库。另外，键空间定义了数据复制的策略。<br>表（Table）：表是数据存储的基本单位，由行和列组成。每张表都有一个唯一的名称和定义。</p>
+</li>
+<li><p>主键（Primary Key）：每行数据都有一个唯一的主键。主键由分区键和可选的列组成，用于唯一标识数据行。</p>
+</li>
+<li><p>分区键（Partition Key）：Cassandra 使用分区键的哈希值将数据分布到不同的节点上，从而实现负载均衡和数据的水平扩展。分区键可以是单个列或多列的组合（复合分区键）。</p>
+</li>
+</ul>
+<ol>
+<li>键空间（Keyspace）</li>
+</ol>
+<p>打开 cqlsh 命令行，执行下面语句，来创建一个 <code>Keyspace</code>。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">KEYSPACE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> test<br><span class="hljs-keyword">WITH</span> replication = &#123;<span class="hljs-string">&#x27;class&#x27;</span>: <span class="hljs-string">&#x27;SimpleStrategy&#x27;</span>, <span class="hljs-string">&#x27;replication_factor&#x27;</span>: <span class="hljs-number">1</span>&#125;;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>CREATE KEYSPACE IF NOT EXISTS</code>: 这是创建 keyspace 的命令，<code>IF NOT EXISTS</code> 是一个条件语句，确保只有当 keyspace 还未创建时才执行创建操作。这样可以防止重复创建 keyspace 导致的错误。</p>
+</li>
+<li><p><code>test</code>: 这是即将创建的 keyspace 的名称。keyspace 类似于传统关系型数据库中的“数据库”，是 Cassandra 中数据的最高层级容器。</p>
+</li>
+<li><p><code>WITH replication</code>: 这里指定了 keyspace 的复制策略和配置。复制策略决定了数据如何在集群中复制和分布。</p>
+</li>
+<li><p><code>&#39;class&#39;: &#39;SimpleStrategy&#39;</code>: 这里指定了复制策略的类型为 <code>SimpleStrategy</code>。<code>SimpleStrategy</code> 是一种基本的复制策略，适用于单数据中心的部署。它将数据均匀地分布到集群中的节点上。</p>
+</li>
+<li><p><code>&#39;replication_factor&#39;</code>: 1: 这是复制因子，表示每个数据分区的副本数量。在这个例子中，<code>replication_factor</code> 设置为 1，意味着每个数据分区只有一个副本，这通常用于测试或开发环境，但在生产环境中可能不是最佳实践，因为缺乏冗余会导致数据丢失的风险增加。</p>
+</li>
+</ul>
+<ol start="2">
+<li>键空间创建完成后，执行如下命令，可查看所有的 <code>Keyspace</code>。</li>
+</ol>
+<p><code>DESCRIBE KEYSPACES;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203134492.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="3">
+<li>如果想删除某个键空间，以及其中的所有数据，可执行如下语句。</li>
+</ol>
+<p><code>DROP KEYSPACE IF EXISTS test;</code></p>
+<ol start="4">
+<li>键空间创建完成后，可通过 USE 命令，选择该 Keyspace ，以便后续操作它。</li>
+</ol>
+<p><code> USE test;</code></p>
+<ol start="5">
+<li>执行如下语句，创建一张 <code>note_content</code> 笔记内容表。这里注意，由于我们是拿 Cassandra 充当 K-V 键值存储数据库，所以表中只包含两个字段（实际可以支持多字段），<code>id</code> 主键充当 <code>Key</code> , 笔记内容 <code>content</code> 充当 <code>Value</code> :</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">CREATE TABLE</span> note_content (<br>    id UUID <span class="hljs-keyword">PRIMARY KEY</span>,<br>    content TEXT<br>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>CREATE TABLE</code>: 这是 Cassandra 中创建新表的命令。</p>
+</li>
+<li><p><code>note_content</code>: 表的名称。</p>
+</li>
+<li><p><code>(</code> 和 <code>)</code>：这些括号包含了表的列定义和主键定义。</p>
+</li>
+<li><p><code>id UUID PRIMARY KEY</code>: 这里定义了表中的一个列 <code>id</code>，其数据类型是 <code>UUID</code>（通用唯一标识符）。<code>PRIMARY KEY</code> 指示 id 列是表的主键。在 Cassandra 中，主键用于唯一标识表中的每一行，同时也是数据在集群中分区的依据。</p>
+</li>
+<li><p><code>content TEXT</code>: 这里定义了另一个列 content，其数据类型是 TEXT。TEXT 类型用于存储文本字符串。</p>
+</li>
+</ul>
+<p>为什么这里要用 UUID? 而不是笔记本身的 ID?</p>
+<p>UUID 生成的值具有较高的随机性，因此在集群中可以提供良好的数据分布，避免热点问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203548357.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="6">
+<li>执行如下语句，查询 <code>note_content</code> 表中所有数据。</li>
+</ol>
+<p><code>SELECT * FROM note_content;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203650219.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="7">
+<li>笔记内容表创建完成后，执行如下语句，插入一条数据。</li>
+</ol>
+<p><code>INSERT INTO note_content (id, content) VALUES (uuid(), &#39;这是一条测试笔记&#39;);</code></p>
+<ol start="8">
+<li>执行如下语句，以 id 为条件来更新对应笔记内容。</li>
+</ol>
+<p><code>UPDATE note_content SET content = &#39;更新后的评论内容&#39; WHERE id = 7e1c4af6-9b12-4f89-a5d1-0e05f8a627c7;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122203905346.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="9">
+<li>执行如下语句，将 id 为 7e1c4af6-9b12-4f89-a5d1-0e05f8a627c7 的记录删除掉。</li>
+</ol>
+<p><code>DELETE FROM note_content WHERE id = 7e1c4af6-9b12-4f89-a5d1-0e05f8a627c7;</code></p>
+<p>![Loading](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122204050982.png">https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122204050982.png</a> “)</p>
+
                 
               </div>
             
@@ -343,32 +446,13 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
         <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
+      
+        <a href="/tags/Cassandra/" class="print-no-link">#Cassandra</a>
       
     </div>
   
@@ -380,8 +464,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SaToken使用</div>
-      <div>http://example.com/2025/01/22/SaToken使用/</div>
+      <div>Cassandra安装与使用</div>
+      <div>http://example.com/2025/01/22/Cassandra安装与使用/</div>
     </div>
     <div class="license-meta">
       
@@ -422,7 +506,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Fluid</a> <br>
-                <strong>本文链接: </strong><a href="http://example.com/2025/01/22/SaToken%E4%BD%BF%E7%94%A8/">http://example.com/2025/01/22/SaToken%E4%BD%BF%E7%94%A8/</a> <br>
+                <strong>本文链接: </strong><a href="http://example.com/2025/01/22/Cassandra%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">http://example.com/2025/01/22/Cassandra%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -432,9 +516,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/22/RBAC%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B/" title="RBAC权限设计模型">
+                      <a href="/2025/01/22/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" title="性能测试">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RBAC权限设计模型</span>
+                        <span class="hidden-mobile">性能测试</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -442,8 +526,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/21/Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/" title="Github搭建个人图床">
-                        <span class="hidden-mobile">Github搭建个人图床</span>
+                      <a href="/2025/01/22/OpenFeign%E7%BB%84%E4%BB%B6/" title="OpenFeign组件">
+                        <span class="hidden-mobile">OpenFeign组件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
