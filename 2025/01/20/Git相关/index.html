@@ -19,22 +19,19 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。 远程获取使用git clone 命令，例如： 1git clone https:&#x2F;&#x2F;github.com&#x2F;git&#x2F;git.git Git工作区域">
+    <meta name="description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。https:&#x2F;&#x2F;github.com&#x2F;Bloomivy&#x2F;pic&#x2F;blob&#x2F;main&#x2F;%E5%B1%8F%E5%B9%95%E6%88%AA%E5%">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git相关">
 <meta property="og:url" content="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。 远程获取使用git clone 命令，例如： 1git clone https:&#x2F;&#x2F;github.com&#x2F;git&#x2F;git.git Git工作区域">
+<meta property="og:description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。https:&#x2F;&#x2F;github.com&#x2F;Bloomivy&#x2F;pic&#x2F;blob&#x2F;main&#x2F;%E5%B1%8F%E5%B9%95%E6%88%AA%E5%">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/image.png">
-<meta property="og:image" content="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg">
 <meta property="article:published_time" content="2025-01-20T13:13:18.000Z">
-<meta property="article:modified_time" content="2025-01-21T02:15:18.881Z">
+<meta property="article:modified_time" content="2025-01-22T01:41:50.988Z">
 <meta property="article:author" content="Bloom">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/image.png">
   
   
   
@@ -243,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          685 字
+          708 字
         
       </span>
     
@@ -300,7 +297,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> demo<br><span class="hljs-built_in">cd</span> demo<br></code></pre></td></tr></table></figure>
 <p>初始化Git仓库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init<br></code></pre></td></tr></table></figure>
-<p>执行指令 ls -a，控制台显示.git目录。<br>进入.git目录下，执行ls -altr查看到以下文件。<br><img src="/2025/01/20/Git%E7%9B%B8%E5%85%B3/image.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<p>执行指令 ls -a，控制台显示.git目录。<br>进入.git目录下，执行ls -altr查看到以下文件。<br><a target="_blank" rel="noopener" href="https://github.com/Bloomivy/pic/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg">https://github.com/Bloomivy/pic/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg</a></p>
 <h3 id="远程获取"><a href="#远程获取" class="headerlink" title="远程获取"></a>远程获取</h3><p>使用git clone 命令，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/git/git.git<br></code></pre></td></tr></table></figure>
 <h2 id="Git工作区域和文件状态"><a href="#Git工作区域和文件状态" class="headerlink" title="Git工作区域和文件状态"></a>Git工作区域和文件状态</h2><p>Git主要存在三种区域。<br>在.git目录层即为工作区，通常在这一层编写代码。<br>代码编写完成后使用 git add 命令提交，提交到暂存区。<br>在暂存区的代码使用 git commit 提交到本地仓库。</p>
@@ -309,7 +306,7 @@
 <li>untrack </li>
 <li>unmodified</li>
 <li>modified</li>
-<li>committed<br><img src="/2025/01/20/Git%E7%9B%B8%E5%85%B3/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg" srcset="/img/loading.gif" lazyload alt="alt text"></li>
+<li>committed</li>
 </ul>
 <h2 id="添加和提交文件"><a href="#添加和提交文件" class="headerlink" title="添加和提交文件"></a>添加和提交文件</h2><p> git status 查看当前状态。<br> git add 将文件添加到暂存区，等待后续操作。<br> git commit 提交暂存区中的文件，并不提交工作区中的文件。可以使用 -m 指定提交的信息。如果不使用-m参数，git会自动进入一个交互式界面，默认使用nano编辑。<br> git log 命令查看提交记录。可以使用 – online 查看简洁的提交信息，只显示作者和提交时间。</p>
 <h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><p>git reset </p>
