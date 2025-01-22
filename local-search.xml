@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Github搭建个人图床</title>
+    <link href="/2025/01/21/Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/"/>
+    <url>/2025/01/21/Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/</url>
+    
+    <content type="html"><![CDATA[<h1 id="一、创建新的个人仓库"><a href="#一、创建新的个人仓库" class="headerlink" title="一、创建新的个人仓库"></a>一、创建新的个人仓库</h1><p>在Github中创建新的仓库，确保仓库为public，其他保持默认即可</p><h1 id="二、上传图片"><a href="#二、上传图片" class="headerlink" title="二、上传图片"></a>二、上传图片</h1><p>通过传统方式向Github上传图片比较麻烦，此处使用PicGO来进行图片上传。</p><h2 id="PicGO图片上传配置"><a href="#PicGO图片上传配置" class="headerlink" title="PicGO图片上传配置"></a>PicGO图片上传配置</h2><ol><li><p>在Github创建token，打开Settings -&gt; Developer settings -&gt; Personal access tokens，选择classic方式创建，最后点击 generate new token；<br>填写相关信息时，勾选repo。<br>注：token生成只会生成一次，需要自行记录备用。</p></li><li><p>配置PicGO。打开 图床设置 -&gt; Github 图床<br><img src="/2025/01/21/Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-1.png" alt="alt text"></p></li></ol><p>可能存在的问题：上传图片时报错：You must be logged in to use issue<br>解决方式：注册sm.ms账号，创建token，将token填入PicGO配置即可正常上传。<br><img src="/2025/01/21/Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/image-2.png" alt="alt text"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Github</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>差分数组</title>
     <link href="/2025/01/21/%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/"/>
     <url>/2025/01/21/%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</url>
