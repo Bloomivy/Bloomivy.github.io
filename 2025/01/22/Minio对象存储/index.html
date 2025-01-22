@@ -19,26 +19,31 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。 远程获取使用git clone 命令，例如： 1git clone https:&#x2F;&#x2F;github.com&#x2F;git&#x2F;git.git Git工作区域">
+    <meta name="description" content="什么是 MinIO？MinIO 是一个开源的对象存储服务器。这意味着它允许你在互联网上存储大量数据，比如文件、图片、视频等，而不需要依赖传统的文件系统。MinIO 的特点在于它非常灵活、易于使用，同时也非常强大，可以在你的应用程序中方便地集成。  为什么使用 MinIO？    可伸缩性和性能： MinIO 允许你在需要时轻松地扩展存储容量，无需中断服务。它具有出色的性能，可以处理大量的并发读取">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git相关">
-<meta property="og:url" content="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:title" content="Minio对象存储">
+<meta property="og:url" content="http://example.com/2025/01/22/Minio%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="Git安装Git使用创建Git仓库本地创建在需要创建仓库的地方执行指令。 12mkdir democd demo 初始化Git仓库 1git init 执行指令 ls -a，控制台显示.git目录。进入.git目录下，执行ls -altr查看到以下文件。 远程获取使用git clone 命令，例如： 1git clone https:&#x2F;&#x2F;github.com&#x2F;git&#x2F;git.git Git工作区域">
+<meta property="og:description" content="什么是 MinIO？MinIO 是一个开源的对象存储服务器。这意味着它允许你在互联网上存储大量数据，比如文件、图片、视频等，而不需要依赖传统的文件系统。MinIO 的特点在于它非常灵活、易于使用，同时也非常强大，可以在你的应用程序中方便地集成。  为什么使用 MinIO？    可伸缩性和性能： MinIO 允许你在需要时轻松地扩展存储容量，无需中断服务。它具有出色的性能，可以处理大量的并发读取">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122111103994.png">
-<meta property="og:image" content="https://github.com/Bloomivy/pic/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg?raw=true">
-<meta property="article:published_time" content="2025-01-20T13:13:18.000Z">
-<meta property="article:modified_time" content="2025-01-22T03:12:37.191Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164023293.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164100224.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164239816.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164239344.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165043436.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165043436.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165205868.png">
+<meta property="article:published_time" content="2025-01-22T08:38:37.000Z">
+<meta property="article:modified_time" content="2025-01-22T08:53:36.946Z">
 <meta property="article:author" content="Bloom">
-<meta property="article:tag" content="Git">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Minio">
+<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122111103994.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164023293.png">
   
   
   
-  <title>Git相关 - Bloomivy</title>
+  <title>Minio对象存储 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +220,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Git相关"></span>
+            <span id="subtitle" data-typed-text="Minio对象存储"></span>
           
         </div>
 
@@ -231,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-20 21:13" pubdate>
-          2025年1月20日 晚上
+        <time datetime="2025-01-22 16:38" pubdate>
+          2025年1月22日 下午
         </time>
       </span>
     
@@ -243,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          685 字
+          1.2k 字
         
       </span>
     
@@ -254,7 +259,7 @@
         
         
         
-          6 分钟
+          11 分钟
         
       </span>
     
@@ -291,49 +296,64 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Git相关</h1>
+            <h1 id="seo-header">Minio对象存储</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h1><h1 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h1><h2 id="创建Git仓库"><a href="#创建Git仓库" class="headerlink" title="创建Git仓库"></a>创建Git仓库</h2><h3 id="本地创建"><a href="#本地创建" class="headerlink" title="本地创建"></a>本地创建</h3><p>在需要创建仓库的地方执行指令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> demo<br><span class="hljs-built_in">cd</span> demo<br></code></pre></td></tr></table></figure>
-<p>初始化Git仓库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init<br></code></pre></td></tr></table></figure>
-<p>执行指令 ls -a，控制台显示.git目录。<br>进入.git目录下，执行ls -altr查看到以下文件。<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122111103994.png" srcset="/img/loading.gif" lazyload alt="Loading" title="命令回显"></p>
-<h3 id="远程获取"><a href="#远程获取" class="headerlink" title="远程获取"></a>远程获取</h3><p>使用git clone 命令，例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/git/git.git<br></code></pre></td></tr></table></figure>
-<h2 id="Git工作区域和文件状态"><a href="#Git工作区域和文件状态" class="headerlink" title="Git工作区域和文件状态"></a>Git工作区域和文件状态</h2><p>Git主要存在三种区域。<br>在.git目录层即为工作区，通常在这一层编写代码。<br>代码编写完成后使用 git add 命令提交，提交到暂存区。<br>在暂存区的代码使用 git commit 提交到本地仓库。</p>
-<p>Git中文件的几种状态</p>
+                <ol>
+<li><p>什么是 MinIO？<br>MinIO 是一个开源的对象存储服务器。这意味着它允许你在互联网上存储大量数据，比如文件、图片、视频等，而不需要依赖传统的文件系统。MinIO 的特点在于它非常灵活、易于使用，同时也非常强大，可以在你的应用程序中方便地集成。</p>
+</li>
+<li><p>为什么使用 MinIO？</p>
+</li>
+</ol>
 <ul>
-<li>untrack </li>
-<li>unmodified</li>
-<li>modified</li>
-<li>committed<br><img src="https://github.com/Bloomivy/pic/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_21-1-2025_9212_www.bilibili.com.jpeg?raw=true" srcset="/img/loading.gif" lazyload alt="Loading" title="Git文件四种状态"></li>
+<li><p>可伸缩性和性能： MinIO 允许你在需要时轻松地扩展存储容量，无需中断服务。它具有出色的性能，可以处理大量的并发读取和写入请求。</p>
+</li>
+<li><p>开源和自由： MinIO 是开源软件，遵循 Apache License 2.0 许可证，这意味着你可以自由地使用、修改和分发它。</p>
+</li>
+<li><p>容器化部署： MinIO 提供了容器化部署的支持，可以在各种平台上快速部署和运行，包括本地开发机、云服务器和容器编排环境（如 Docker）。</p>
+</li>
+<li><p>兼容性： MinIO 提供了 S3 兼容的 API，这意味着它可以与任何兼容 Amazon S3 的应用程序无缝集成，为你的应用程序提供强大的对象存储能力。</p>
+</li>
+<li><p>易用性： MinIO 的配置和管理非常简单，它提供了直观的Web控制台和命令行工具，帮助你方便地管理存储桶和对象。</p>
+</li>
 </ul>
-<h2 id="添加和提交文件"><a href="#添加和提交文件" class="headerlink" title="添加和提交文件"></a>添加和提交文件</h2><p> git status 查看当前状态。<br> git add 将文件添加到暂存区，等待后续操作。<br> git commit 提交暂存区中的文件，并不提交工作区中的文件。可以使用 -m 指定提交的信息。如果不使用-m参数，git会自动进入一个交互式界面，默认使用nano编辑。<br> git log 命令查看提交记录。可以使用 – online 查看简洁的提交信息，只显示作者和提交时间。</p>
-<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><p>git reset </p>
+<p>总的来说，MinIO 是一个灵活、高性能、易用且开源的对象存储解决方案，适用于各种规模的应用程序，特别是那些需要大规模数据存储和访问的项目。</p>
+<ol start="3">
+<li>Docker搭建Minio服务<br>3.1 选择一个 Minio 镜像<br>然后，我们在浏览器中访问地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a> ， 输入关键词 minio&#x2F;minio, 找到 Minio 镜像：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164023293.png" srcset="/img/loading.gif" lazyload alt="Loading" title="Minio"></li>
+</ol>
+<p>点击进去，点击 Tags 标签选项，选择最新的一个发行版本：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164100224.png" srcset="/img/loading.gif" lazyload alt="Loading" title="Tags"></p>
+<p>3.2 下载Minio镜像<br>打开命令行，执行该命令拉取镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull minio/minio:RELEASE.2023-09-30T07-02-29Z<br></code></pre></td></tr></table></figure>
+<p>镜像下载成功后，执行 <code>docker images</code> , 如果列表中有 <code>minio/minio</code> 镜像，则表示镜像下载成功了：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164239816.png" srcset="/img/loading.gif" lazyload alt="Loading" title="images"></p>
+<p>3.3 新建数据挂载目录<br>下载镜像成功后，我们在某个盘下，新建一个 &#x2F;docker 文件夹，然后在该文件夹中再新建一个 &#x2F;minio 文件夹。<br>新建该文件夹的目的是，后面通过镜像运行 Minio 容器时，可以将容器内的数据目录，挂载到宿主机的 E:\docker\minio 目录下，防止容器重启后，会导致数据丢失的问题。</p>
+<p>3.4 运行 Docker Minio 容器<br>通过该镜像运行 <code>Minio</code> 容器，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d \<br>   -p 9000:9000 \<br>   -p 9090:9090 \<br>   --name minio \<br>   -v E:\docker\minio\data:/data \<br>   -e <span class="hljs-string">&quot;MINIO_ROOT_USER=xxx&quot;</span> \<br>   -e <span class="hljs-string">&quot;MINIO_ROOT_PASSWORD=xxx&quot;</span> \<br>   minio/minio:RELEASE.2023-09-30T07-02-29Z server /data --console-address <span class="hljs-string">&quot;:9090&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>命令选型含义：</p>
 <ul>
-<li>git reset –soft：回退到上一个版本时，工作区和暂存区都不清空。</li>
-<li>git reset –hard：回退到上一个版本时，工作区和暂存区会清空。</li>
-<li>git reset –mixed：回退到上一个版本时，清空暂存区，不清空工作区。</li>
-<li>git reflog：查看所有操作及对应的版本号，便于进行回退。</li>
+<li><code>docker run</code>: 运行 Docker 容器的命令。</li>
+<li><code>-d</code> : 表示后台运行该容器；</li>
+<li><code>-p 9000:9000</code>: 将宿主机的 9000 端口映射到容器的 9000 端口。MinIO 默认的 HTTP API 端口是 9000。</li>
+<li><code>-p 9090:9090</code>: 将宿主机的 9090 端口映射到容器的 9090 端口。这是 MinIO 的 Web 控制台的端口。</li>
+<li><code>--name minio</code>: 给容器取了一个名字，这里是 “minio”。</li>
+<li><code>-v E:\docker\minio\data:/data</code>: 将宿主机上的 <code>E:\docker\minio\data</code> 目录映射到容器内的 <code>/data</code>目录。这是 MinIO 存储数据的地方。如果你希望数据在容器删除后仍然保存，可以将数据目录映射到宿主机。</li>
+<li><code>-e &quot;MINIO_ROOT_USER=xxx&quot;</code>: 设置 MinIO 的管理员用户名为 “xxx”。这是用于 MinIO Web 控制台和 API 的初始管理员用户名。</li>
+<li><code>-e &quot;MINIO_ROOT_PASSWORD=xxx&quot;</code>: 设置 MinIO 的管理员密码为 “xxx”。这是用于 MinIO Web 控制台和 API 的初始管理员密码。</li>
+<li><code>minio/minio:RELEASE.2023-09-30T07-02-29Z</code>: 这是 MinIO 的 Docker 镜像版本。</li>
+<li><code>server /data --console-address &quot;:9090&quot;</code>: 启动 MinIO 服务器，并将数据存储在容器内的<code>/data</code>目录。</li>
+<li><code>--console-address &quot;:9090&quot;</code>表示 MinIO 的Web 控制台将在容器的 9090 端口上运行。</li>
 </ul>
-<h2 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h2><p>git diff，默认比较工作区和暂存区的内容。<br>git diff commit，比较工作区和指定提交版本的区别。<br>git diff cached commit，比较暂存区与指定提交版本区别。<br>git diff commit1 commit2，比较两个提交的版本区别。</p>
-<h2 id="gitignore"><a href="#gitignore" class="headerlink" title="gitignore"></a>gitignore</h2><p>应该忽略哪些文件：</p>
-<ul>
-<li>系统或软件自动生成的代码。</li>
-<li>编译产生的中间文件和结果文件。</li>
-<li>运行时生成的日志文件、缓存文件和临时文件。</li>
-<li>涉及敏感信息的文件。</li>
-</ul>
-<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>git branch xx 创建新的分支。<br>git checkout xx 切换到不同分支上。也可以用于恢复文件，存在歧义，默认切换分支。<br>git switch xx 切换不同分支。<br>git merge xx 合并分支到当前位置。</p>
-<p>切换分支时，工作区也会随之变化。</p>
-<h2 id="解决合并冲突"><a href="#解决合并冲突" class="headerlink" title="解决合并冲突"></a>解决合并冲突</h2><p>两个分支如果存在对同一文件进行不同修改，此时会发生冲突。<br>可以使用 git diff 命令查看冲突的具体内容。<br>手动修改文件再提交即可。</p>
-<h2 id="回退和rebase"><a href="#回退和rebase" class="headerlink" title="回退和rebase"></a>回退和rebase</h2><ul>
-<li>rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
-<li>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</li>
-</ul>
+<p>执行该命令后，再执行 <code>docker ps</code> 命令，可查看正在运行的容器，若如下图所示，容器列表中出现了 <code>minio</code> ，则表示 <code>Minio</code> 后台运行成功了：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122164239344.png" srcset="/img/loading.gif" lazyload alt="Loading" title="Minio"></p>
+<ol start="4">
+<li><p>访问Minio控制台<br>浏览器访问地址 <a target="_blank" rel="noopener" href="http://localhost:9090/">http://localhost:9090</a> ，可访问 MinIO 的 Web 控制台：<br>输入运行容器时，指定的用户名&#x2F;密码：xxx&#x2F;xxx , 进入到 Minio 的管理后台:<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165043436.png" srcset="/img/loading.gif" lazyload alt="Loading" title="后台页面"></p>
+</li>
+<li><p>新建一个Bucket桶<br>进入后台后，点击 Create a Bucket 创建一个 Bucket 桶，用于存储图片。<br>输入 Bucket Name, 我们将其命名为 xxx， 然后点击 Create Bucket 按钮，创建成功后，在 Buckets 列表中就可以看到刚刚新建的桶了：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165043436.png" srcset="/img/loading.gif" lazyload alt="Loading" title="创建Bucket"></p>
+</li>
+<li><p>设置 Bucket 为公共读<br>因为我们上传的图片需要被公网访问到，所以，还需要设置 Bucket 为公共读，默认为 Private 私有。点击想要设置的桶，然后编辑 Access Policy,将 Access Policy 选项选择为 Public 公共读，点击 Set 设置按钮,设置成功后，就可以看到 Access Policy 一栏变更为 Public 了，如下图所示:<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250122165205868.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+</li>
+</ol>
 
                 
               </div>
@@ -342,13 +362,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Git/" class="print-no-link">#Git</a>
+        <a href="/tags/Minio/" class="print-no-link">#Minio</a>
       
-        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+        <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
       
     </div>
   
@@ -360,8 +401,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Git相关</div>
-      <div>http://example.com/2025/01/20/Git相关/</div>
+      <div>Minio对象存储</div>
+      <div>http://example.com/2025/01/22/Minio对象存储/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年1月20日</div>
+          <div>2025年1月22日</div>
         </div>
       
       
@@ -402,7 +443,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Fluid</a> <br>
-                <strong>本文链接: </strong><a href="http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/">http://example.com/2025/01/20/Git%E7%9B%B8%E5%85%B3/</a> <br>
+                <strong>本文链接: </strong><a href="http://example.com/2025/01/22/Minio%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">http://example.com/2025/01/22/Minio%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -412,9 +453,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/21/%E5%89%8D%E7%BC%80%E5%92%8C%E6%95%B0%E7%BB%84/" title="前缀和数组">
+                      <a href="/2025/01/22/%E9%98%BF%E9%87%8C%E4%BA%91OSS/" title="阿里云OSS">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前缀和数组</span>
+                        <span class="hidden-mobile">阿里云OSS</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -422,8 +463,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/20/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" title="二分搜索">
-                        <span class="hidden-mobile">二分搜索</span>
+                      <a href="/2025/01/22/Nacos%E4%BD%BF%E7%94%A8/" title="Nacos使用">
+                        <span class="hidden-mobile">Nacos使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
