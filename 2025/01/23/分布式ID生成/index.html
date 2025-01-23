@@ -1,0 +1,944 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="/css/my-avatar.css"><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Bloom">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是分布式ID？分布式 ID 是指在一个分布式系统中，为每一个数据项或事件生成一个全局唯一标识符的过程。 这个标识符通常是一个长整型数字或字符串，能够跨多个服务实例和数据库集群唯一识别每一个实体，是实现数据关联和跟踪的基础。 在传统的单体应用中，ID 生成相对简单，可以通过数据库的自增字段来实现。但在微服务架构下，每个服务可能运行在不同的服务器上，甚至可能有多个实例，这就意味着每个服务都需要独立">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式ID生成">
+<meta property="og:url" content="http://example.com/2025/01/23/%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90/index.html">
+<meta property="og:site_name" content="Bloomivy">
+<meta property="og:description" content="什么是分布式ID？分布式 ID 是指在一个分布式系统中，为每一个数据项或事件生成一个全局唯一标识符的过程。 这个标识符通常是一个长整型数字或字符串，能够跨多个服务实例和数据库集群唯一识别每一个实体，是实现数据关联和跟踪的基础。 在传统的单体应用中，ID 生成相对简单，可以通过数据库的自增字段来实现。但在微服务架构下，每个服务可能运行在不同的服务器上，甚至可能有多个实例，这就意味着每个服务都需要独立">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085339179.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085611256.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085941651.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090306186.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090419001.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090748174.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090915828.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091016808.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091241534.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091358519.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091535799.jpg">
+<meta property="article:published_time" content="2025-01-23T00:54:27.000Z">
+<meta property="article:modified_time" content="2025-01-23T01:24:47.235Z">
+<meta property="article:author" content="Bloom">
+<meta property="article:tag" content="开发">
+<meta property="article:tag" content="ZooKeeper">
+<meta property="article:tag" content="leaf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085339179.png">
+  
+  
+  
+  <title>分布式ID生成 - Bloomivy</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sign.css">
+<link rel="stylesheet" href="/css/glassBg.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/part-text.css">
+<link rel="stylesheet" href="/css/my-avator.css">
+<link rel="stylesheet" href="/css/scrollbar.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/selection.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bloomivy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分布式ID生成"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Bloom
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-23 08:54" pubdate>
+          2025年1月23日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">分布式ID生成</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="什么是分布式ID？"><a href="#什么是分布式ID？" class="headerlink" title="什么是分布式ID？"></a>什么是分布式ID？</h1><p>分布式 ID 是指在一个分布式系统中，为每一个数据项或事件生成一个全局唯一标识符的过程。 这个标识符通常是一个长整型数字或字符串，能够跨多个服务实例和数据库集群唯一识别每一个实体，是实现数据关联和跟踪的基础。</p>
+<p>在传统的单体应用中，ID 生成相对简单，可以通过数据库的自增字段来实现。但在微服务架构下，每个服务可能运行在不同的服务器上，甚至可能有多个实例，这就意味着每个服务都需要独立生成 ID，并且保证全局唯一性。此外，分布式 ID 还需要解决以下几个关键问题：</p>
+<ul>
+<li><p>一致性：所有生成的 ID 必须在分布式环境中保持一致，避免重复和冲突。</p>
+</li>
+<li><p>高性能：在高并发场景下，ID 生成机制不能成为系统的瓶颈。</p>
+</li>
+<li><p>可扩展性：随着业务的增长，ID 生成策略应该易于扩展，适应更大的负载。</p>
+</li>
+<li><p>容错性：即使部分服务出现故障，ID 生成也不能中断。</p>
+</li>
+</ul>
+<h1 id="分布式-ID-生成方案"><a href="#分布式-ID-生成方案" class="headerlink" title="分布式 ID 生成方案"></a>分布式 ID 生成方案</h1><p>目前，业界已经发展出了多种分布式 ID 生成算法和技术，以下是常见的几种方案：</p>
+<ol>
+<li><p>UUID ： UUID (Universally Unique Identifier) 是一种常用的分布式 ID 生成方式, 它的标准型式包含 32 个 16 进制数字，以连字号分为五段，形式为 8-4-4-4-12 的 36 个字符，示例：550e8400-e29b-41d4-a716-446655440000。</p>
+<p> 优点:</p>
+<ul>
+<li>生成性能非常高：直接本地生成，不依赖其他中间件，无网络 &#x2F; 磁盘 IO 消耗；</li>
+</ul>
+<p> 缺点：</p>
+<ul>
+<li><p>不易于存储：UUID 太长，16 字节 128 位，通常以 36 长度的字符串表示。在海量数据场景下，会消耗较大的存储空间。</p>
+</li>
+<li><p>信息不安全：基于 MAC 地址生成 UUID 的算法可能会造成 MAC 地址泄露，这个漏洞曾被用于寻找梅丽莎病毒的制作者位置。</p>
+</li>
+<li><p>充当主键时，在特定场景下，会存在问题。如作为 MySQL 数据库的主键时，UUID 就非常不合适。</p>
+</li>
+<li><p>基于数据库（DB）的自增 ID ：可以单独创建一张共享的 ID 生成表，使用自增字段来生成 ID，再存到业务表主键字段中。</p>
+</li>
+</ul>
+</li>
+<li><p>基于数据库（DB）的自增 ID ：可以单独创建一张共享的 ID 生成表，使用自增字段来生成 ID，再存到业务表主键字段中。<br> 优点：</p>
+<ul>
+<li><p>实现非常简单，利用现有的数据库即可搞定；</p>
+</li>
+<li><p>ID 单调递增；</p>
+</li>
+</ul>
+<p> 缺点：</p>
+<ul>
+<li><p>强依赖 DB，当 DB 异常时整个系统不可用，属于致命问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。</p>
+</li>
+<li><p>ID 发号性能瓶颈限制在单台 MySQL 的读写性能。</p>
+</li>
+</ul>
+</li>
+<li><p>基于分布式协调服务： 利用 Zookeeper、Etcd 等分布式协调服务，可以实现 ID 的有序分配。虽然这种方法可以保证 ID 的顺序性，但引入了外部依赖，增加了系统的复杂度。</p>
+</li>
+<li><p>基于分布式缓存：使用 Redis 的 INCRBY 命令，可以为键 （Key）的数字增加指定增量。如果键不存在，则数值会被初始化为 0，然后再执行增量操作。</p>
+</li>
+<li><p>基于 Snowflake 算法（雪花算法）： Snowflake 算法由 Twitter 开发，它结合了时间戳、机器 ID 和序列号，生成 64 位的 ID，如下图所示：</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085339179.png" srcset="/img/loading.gif" lazyload alt="Loading" title="snowflake"></p>
+<ul>
+<li><p>1bit: 符号位（标识正负），不作使用，始终为 0，代表生成的 ID 为正数。</p>
+</li>
+<li><p>41-bit 时间戳: 一共 41 位，用来表示时间戳，单位是毫秒，可以支撑 2 ^41 毫秒（约 69 年）</p>
+</li>
+<li><p>datacenter id + worker id (10 bits): 一般来说，前 5 位表示机房 ID，后 5 位表示机器 ID（项目中可以根据实际需求来调整）。这样就可以区分不同集群&#x2F;机房的节点。</p>
+</li>
+<li><p>12-bit 序列号: 一共 12 位，用来表示序列号。 序列号为自增值，代表单台机器每毫秒能够产生的最大 ID 数(2^12 &#x3D; 4096),也就是说单台机器每毫秒最多可以生成 4096 个 唯一 ID。理论上 snowflake 方案的QPS约为 409.6w &#x2F;s，这种分配方式可以保证在任何一个 IDC 的任何一台机器在任意毫秒内生成的 ID 都是不同的。</p>
+</li>
+</ul>
+<p>snowflake 雪花算法优缺点如下：</p>
+<p>优点：</p>
+<ul>
+<li><p>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。</p>
+</li>
+<li><p>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。</p>
+</li>
+<li><p>可以根据自身业务特性分配bit位，非常灵活。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。</li>
+</ul>
+<h1 id="Leaf-介绍"><a href="#Leaf-介绍" class="headerlink" title="Leaf 介绍"></a>Leaf 介绍</h1><p>Leaf 这个名字是来自德国哲学家、数学家莱布尼茨的一句话： There are no two identical leaves in the world</p>
+<p>—— “世界上没有两片相同的树叶”</p>
+<p>美团 Leaf 基于数据库生成以及 snowflake 雪花算法方案之上，做了进一步的优化，提供了如下两种方案：</p>
+<ol>
+<li>第一种：Leaf-segment 数据库方案:</li>
+</ol>
+<p>在使用数据库的方案上，做了如下改变：</p>
+<p>原方案每次获取ID都得读写一次数据库，造成数据库压力大。改为利用proxy server批量获取，每次获取一个segment(step决定大小)号段的值。用完之后再去数据库获取新的号段，可以大大的减轻数据库的压力。<br>各个业务不同的发号需求用biz_tag字段来区分，每个biz-tag的ID获取相互隔离，互不影响。如果以后有性能需求需要对数据库扩容，不需要上述描述的复杂的扩容操作，只需要对biz_tag分库分表就行。</p>
+<ol start="2">
+<li>第二种：Leaf-snowflake 雪花算法方案:</li>
+</ol>
+<p>Leaf-snowflake方案完全沿用snowflake方案的bit位设计，即是“1+41+10+12”的方式组装ID号。对于workerID的分配，当服务集群数量较小的情况下，完全可以手动配置。Leaf服务规模较大，动手配置成本太高。所以使用Zookeeper持久顺序节点的特性自动对snowflake节点配置wokerID。Leaf-snowflake是按照下面几个步骤启动的：</p>
+<p>启动Leaf-snowflake服务，连接Zookeeper，在leaf_forever父节点下检查自己是否已经注册过（是否有该顺序子节点）。<br>如果有注册过直接取回自己的workerID（zk顺序节点生成的int类型ID号），启动服务。<br>如果没有注册过，就在该父节点下面创建一个持久顺序节点，创建成功后取回顺序号当做自己的workerID号，启动服务。</p>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>Leaf 的 GitHub 地址是：<a target="_blank" rel="noopener" href="https://github.com/Meituan-Dianping/Leaf">https://github.com/Meituan-Dianping/Leaf</a> ，如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085611256.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ul>
+<li>①：leaf-core : 核心模块，包括两种方案的核心代码；</li>
+<li>②：leaf-server : 服务端工程，用于对外提供接口获取分布式 ID，以及监控页面;</li>
+<li>③：scripts : 数据库脚本；</li>
+</ul>
+<p>打开命令行工具，进入到想要存放工程的文件夹下，执行如下命令，拉取 Leaf 源码。</p>
+<p><code>git clone https://github.com/Meituan-Dianping/Leaf.git</code></p>
+<h2 id="准备数据库"><a href="#准备数据库" class="headerlink" title="准备数据库"></a>准备数据库</h2><p>源码拉取完毕后，还有一些前置工作。由于 Leaf-segment 方案依赖于数据库，所以还需提前将数据库、表创建好。新建一个名为 leaf 的数据库。库创建完毕后，执行如下 SQL :</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">CREATE TABLE</span> `leaf_alloc` (<br>  `biz_tag` <span class="hljs-type">varchar</span>(<span class="hljs-number">128</span>)  <span class="hljs-keyword">NOT NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">&#x27;&#x27;</span>,<br>  `max_id` <span class="hljs-type">bigint</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">&#x27;1&#x27;</span>,<br>  `step` <span class="hljs-type">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT NULL</span>,<br>  `description` <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)  <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span>,<br>  `update_time` <span class="hljs-type">timestamp</span> <span class="hljs-keyword">NOT NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">ON</span> <span class="hljs-keyword">UPDATE</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>,<br>  <span class="hljs-keyword">PRIMARY KEY</span> (`biz_tag`)<br>) ENGINE<span class="hljs-operator">=</span>InnoDB;<br><br><span class="hljs-keyword">insert into</span> leaf_alloc(biz_tag, max_id, step, description) <span class="hljs-keyword">values</span>(<span class="hljs-string">&#x27;leaf-segment-test&#x27;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2000</span>, <span class="hljs-string">&#x27;Test leaf Segment Mode Get Id&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>表设计</p>
+<ul>
+<li><p>biz_tag : 用来区分业务，例如生成用户 ID、生成笔记 ID通过此标识隔离开来;</p>
+</li>
+<li><p>max_id: 表示该 biz_tag 目前所被分配的 ID 号段的最大值;</p>
+</li>
+<li><p>step: 表示每次分配的号段长度。</p>
+</li>
+</ul>
+<p>基于数据库生成 ID, 最原始的方案是，获取 ID 每次都需要写数据库，现在只需要把 step 设置得足够大，比如 1000。那么只有当 1000 个号被消耗完了之后才会去重新读写一次数据库。读写数据库的频率从1减小到了 1&#x2F;step 。</p>
+<p>表创建完成后，再插入一条业务标识为 leaf-segment-test 的记录，step 为 2000，表示号段长度为 2000， 即每次生成 2000 个 ID 。</p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>数据库准备好后，通过 IDE 打开 Leaf 源码工程，并编辑 leaf-server 模块 &#x2F;resources 资源目录中的 leaf.properties 配置文件</p>
+<p>将 leaf.segment.enable 配置为 true , 表示开启号段模式，并配置数据库连接等信息。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">leaf.name</span>=<span class="hljs-string">com.sankuai.leaf.opensource.test</span><br><span class="hljs-attr">leaf.segment.enable</span>=<span class="hljs-string">true</span><br><span class="hljs-attr">leaf.jdbc.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/leaf?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai</span><br><span class="hljs-attr">leaf.jdbc.username</span>=<span class="hljs-string">root</span><br><span class="hljs-attr">leaf.jdbc.password</span>=<span class="hljs-string">123456</span><br><br><span class="hljs-attr">leaf.snowflake.enable</span>=<span class="hljs-string">false</span><br><span class="hljs-comment">#leaf.snowflake.zk.address=</span><br><span class="hljs-comment">#leaf.snowflake.port=</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="启动-Leaf"><a href="#启动-Leaf" class="headerlink" title="启动 Leaf"></a>启动 Leaf</h2><p>数据库连接配置完毕后，运行 leaf-server 模块下的启动类，看看能否启动成功。不出意外，你会发现控制台报错如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123085941651.jpg" srcset="/img/loading.gif" lazyload alt="Loading" title="启动时报错"></p>
+<p>因为我们目前使用的是 8.0 版本的 MySQL, 需要对 leaf-seaver 模块的 pom.xml 添加最新的驱动</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- MySQL 驱动 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>mysql<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mysql-connector-java<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>8.0.29<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>添加完依赖后，刷新一下 Maven。 然后，编辑 &#x2F;service 包下的 SegmentService 类，在初始化数据源的时候，指定一下驱动路径，以及连接池中连接检查 SQL</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">         <span class="hljs-comment">// Config dataSource</span><br>         dataSource = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DruidDataSource</span>();<br>         dataSource.setDriverClassName(<span class="hljs-string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<br><span class="hljs-comment">// 省略...</span><br>         dataSource.setValidationQuery(<span class="hljs-string">&quot;select 1&quot;</span>);<br>         dataSource.init();<br></code></pre></td></tr></table></figure>
+
+<h3 id="号段模式获取分布式-ID-测试"><a href="#号段模式获取分布式-ID-测试" class="headerlink" title="号段模式获取分布式 ID 测试"></a>号段模式获取分布式 ID 测试</h3><p>测试一下号段模式获取分布式 ID。两种方案的接口地址，可在 LeafController 类中找到<br>号段模式的接口地址为<br><code>http://localhost:8080/api/segment/get/&#123;key&#125;</code></p>
+<p>key 表示业务标识，即表中的 biz_tag 字段。比如我们想要获取 biz_tag 为 leaf-segment-test 的下一个分布式 ID, 访问接口如下<br><code>http://localhost:8080/api/segment/get/leaf-segment-test</code></p>
+<p>浏览器访问，如下图所示，成功拿到了 ID 值, 并且每次刷新，都会一直递增下去</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090306186.jpg" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<h3 id="监控页"><a href="#监控页" class="headerlink" title="监控页"></a>监控页</h3><p>如果想获取一些监控数据，LeafMonitorController 类中定义了对应的接口，路径如下<br><code>http://localhost:8080/cache</code></p>
+<p>浏览器访问，效果图如下：<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090419001.jpg" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<h2 id="Docker-安装-Zookeeper"><a href="#Docker-安装-Zookeeper" class="headerlink" title="Docker 安装 Zookeeper"></a>Docker 安装 Zookeeper</h2><p>我们已经测试了美团 Leaf-segment 号段模式（依赖数据库）来获取分布式 ID , 除了该模式外，还有 Leaf-snowflake （基于雪花算法）模式，它依赖于 Zookeeper。</p>
+<h3 id="Zookeeper-介绍"><a href="#Zookeeper-介绍" class="headerlink" title="Zookeeper 介绍"></a>Zookeeper 介绍</h3><p>Apache ZooKeeper 是一个开源的分布式协调服务，用于大型分布式系统的开发和管理。它提供了一种简单而统一的方法来解决分布式应用中常见的协调问题，如命名服务、配置管理、集群管理、组服务、分布式锁、队列管理等。ZooKeeper 通过提供一种类似文件系统的结构来存储数据，并允许客户端通过简单的 API 进行读写操作，从而简化了分布式系统的复杂度。</p>
+<p>Zookeeper 的核心特性如下：</p>
+<ul>
+<li><p>一致性：对于任何更新，所有客户端都将看到相同的数据视图。这是通过 ZooKeeper 的原子性保证的，意味着所有更新要么完全成功，要么完全失败。</p>
+</li>
+<li><p>可靠性：一旦数据被提交，它将被持久化存储，即使在某些服务器出现故障的情况下，数据也不会丢失。</p>
+</li>
+<li><p>实时性：ZooKeeper 支持事件通知机制，允许客户端实时接收到数据变化的通知。</p>
+</li>
+<li><p>高可用性：ZooKeeper 通常以集群形式部署，可以容忍部分节点的故障，只要集群中超过半数的节点是可用的，ZooKeeper 就能继续提供服务。</p>
+</li>
+</ul>
+<p>ZooKeeper 的数据模型：</p>
+<p>ZooKeeper 使用一个层次化的命名空间来组织数据，类似于文件系统中的目录树。每个节点（称为 znode）都可以有子节点，形成树状结构。每个 znode 可以存储一定量的数据，并且可以设置访问控制列表（ACL）来控制谁可以读取或修改数据。</p>
+<p>ZooKeeper 的应用场景：</p>
+<ul>
+<li><p>配置管理：ZooKeeper 可以用来集中存储和管理分布式系统中的配置信息，当配置发生变化时，可以实时通知到所有客户端。</p>
+</li>
+<li><p>命名服务：ZooKeeper 可以作为服务发现的注册中心，帮助客户端查找和定位服务。</p>
+</li>
+<li><p>集群管理：ZooKeeper 可以用于选举主节点、检测集群成员的变化、以及监控集群的健康状况。</p>
+</li>
+<li><p>分布式锁：ZooKeeper 提供了一种机制来实现分布式环境下的互斥访问，保证多个进程之间数据操作的正确性。</p>
+</li>
+<li><p>队列管理：ZooKeeper 可以用来实现分布式队列，如任务调度队列或消息队列。</p>
+</li>
+</ul>
+<ol>
+<li>下载镜像</li>
+</ol>
+<p>打开命令行工具，执行如下命令，拉取 Zookeeper 镜像</p>
+<p><code>docker pull zookeeper:3.5.6</code></p>
+<ol start="2">
+<li>创建挂载文件夹</li>
+</ol>
+<p>镜像下载完成后，在 E:&#x2F;docker&#x2F; 目录下创建 &#x2F;zookeeper 文件夹，用于存放等会启动容器时，挂载出容器内 Zookeeper 的相关配置文件，以及相关持久化数据</p>
+<ol start="3">
+<li>运行容器</li>
+</ol>
+<p>执行如下命令，运行一个 Zookeeper 容器</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> run -d --name zookeeper -p <span class="hljs-number">2181</span>:<span class="hljs-number">2181</span> -e TZ=<span class="hljs-string">&quot;Asia/Shanghai&quot;</span> -v E:\docker\zookeeper\data:/data -v E:\docker\zookeeper\conf:/conf zookeeper:<span class="hljs-number">3</span>.<span class="hljs-number">5</span>.<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
+
+<p>参数解释</p>
+<ul>
+<li><p>docker run: 这是启动一个新的 Docker 容器的命令。</p>
+</li>
+<li><p>-d: 这个选项表示以守护进程模式（即后台）运行容器。</p>
+</li>
+<li><p>–name zookeeper: 给容器指定一个名字叫做 zookeeper。这可以帮助你更容易地识别和管理这个容器。</p>
+</li>
+<li><p>-p 2181:2181: 这是一个端口映射选项，它将宿主机的 2181 端口映射到容器内的 2181 端口。这意味着在宿主机上，你可以通过访问 localhost:2181 来连接到运行在容器内的 ZooKeeper 服务。</p>
+</li>
+<li><p>-e TZ&#x3D;”Asia&#x2F;Shanghai”: 这个环境变量设置将容器内部的时间区域设为上海时区（亚洲&#x2F;上海）。这样可以确保容器内的时间与你的本地时区一致。</p>
+</li>
+<li><p>-v E:\docker\zookeeper\data:&#x2F;data: 这是一个卷挂载选项，将宿主机上的 E:\docker\zookeeper\data 目录挂载到容器内的 &#x2F;data 目录。通常，ZooKeeper 将数据存储在 &#x2F;data 目录下，因此这个挂载点可以让你在宿主机上持久化 ZooKeeper 的数据。</p>
+</li>
+<li><p>-v E:\docker\zookeeper\conf:&#x2F;conf: 类似于上面的挂载，这里将宿主机上的 E:\docker\zookeeper\conf 目录挂载到容器内的 &#x2F;conf 目录。ZooKeeper 的配置文件一般位于 &#x2F;conf 目录下，这样你可以在宿主机上编辑配置文件，而不会影响到容器重启后的配置。</p>
+</li>
+<li><p>zookeeper:3.5.6: 这是指定使用的 Docker 镜像，这里是 ZooKeeper 版本 3.5.6 的镜像。</p>
+</li>
+</ul>
+<ol start="4">
+<li>容器运行成功后，可通过 docker ps 命令查看正在运行中的容器，确认一下 Zookeeper 是否启动成功了</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090748174.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="5">
+<li>进入 Zookeeper</li>
+</ol>
+<p>执行如下命令，进入到 Zookeeper 容器中</p>
+<p><code>docker exec -it zookeeper bash</code></p>
+<p>接着，执行如下命令，来启动 ZooKeeper 的命令行界面（CLI），它允许用户直接与 ZooKeeper 服务器进行交互</p>
+<p><code>./bin/zkCli.sh</code></p>
+<p>连接成功后，效果图如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123090915828.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ol start="6">
+<li>zk 基本命令</li>
+</ol>
+<p>ZooKeeper CLI (zkCli) 是 ZooKeeper 分布式协调服务附带的一个命令行工具，它提供了与 ZooKeeper 服务器交互的方式。使用 zkCli，你可以执行诸如查看、创建、修改和删除 ZooKeeper 中的数据节点（znodes）的操作。</p>
+<ul>
+<li>ls：列出当前路径下的子节点。如：查看根节点的子节点，命令如下</li>
+</ul>
+<p><code>ls /</code></p>
+<ul>
+<li>create：创建一个新的节点 （znode）</li>
+</ul>
+<p><code>create /myNode &quot;hello&quot;</code></p>
+<p>以上命令，将创建一个名为 &#x2F;myNode 的节点，并初始化其数据为 “hello”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091016808.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<ul>
+<li>get：获取指定节点的数据和状态信息。命令如下</li>
+</ul>
+<p><code>get /myNode</code></p>
+<ul>
+<li>set：设置指定节点的数据。命令如下</li>
+</ul>
+<p><code>set /myNode &quot;fresh&quot;</code></p>
+<ul>
+<li>delete：删除指定的节点（znode） 。命令如下</li>
+</ul>
+<p><code>delete /myNode</code></p>
+<p>以上命令，将删除 &#x2F;myNode 节点，注意，只有当该节点没有子节点时才有效。</p>
+<ul>
+<li>quit：退出 zkCli 命令行工具。效果如下：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091241534.png" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<p>美团 Leaf-snowflake 雪花算法模式测试</p>
+<p>编辑配置<br>首先，编辑 leaf-server 模块中的 leaf.properties 配置文件，将 snowflake 模式开启，并配置好 Zookeeper 连接地址，如下</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 是否开启 snowflake 模式</span><br><span class="hljs-attr">leaf.snowflake.enable</span>=<span class="hljs-literal">true</span><br><span class="hljs-comment"># snowflake 模式下的 zk 地址</span><br><span class="hljs-attr">leaf.snowflake.zk.address</span>=<span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">2181</span><br><span class="hljs-comment"># snowflake 模式下的服务注册端口	</span><br><span class="hljs-attr">leaf.snowflake.port</span>=<span class="hljs-number">2222</span><br></code></pre></td></tr></table></figure>
+
+<p>运行 Leaf<br>运行 leaf-server 项目，若控制台中提示 Snowflake Service Init Successfully , 则表示 Leaf-snowflake 模式初始化成功了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091358519.jpg" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+<p>接口测试<br>项目启动成功后，访问如下接口，即可获取雪花算法 ID</p>
+<p><code>/api/snowflake/get/&#123;key&#125;</code></p>
+<p>关于参数 key , 随便填一个就行。阅读源码，查看 SnowflakeIDGenImpl 类，即可得知 key 实际并没有使用到</p>
+<p>浏览器访问此接口，即可获取基于雪花算法生成的 ID 了，如下图所示，每次刷新结果都会不同，而且值是趋势递增的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250123091535799.jpg" srcset="/img/loading.gif" lazyload alt="Loading"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
+      
+        <a href="/tags/ZooKeeper/" class="print-no-link">#ZooKeeper</a>
+      
+        <a href="/tags/leaf/" class="print-no-link">#leaf</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式ID生成</div>
+      <div>http://example.com/2025/01/23/分布式ID生成/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Bloom</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              <!-- <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">Fluid</a> <br>
+                <strong>本文链接: </strong><a href="http://example.com/2025/01/23/%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90/">http://example.com/2025/01/23/%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                    -->
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/23/Caffeine/" title="Caffeine">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Caffeine</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/22/Java%E5%9F%BA%E7%A1%80/" title="Java基础">
+                        <span class="hidden-mobile">Java基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/vvd_js/duration.js"></script> </div> <div class="footer-hitokoto"><a id="hitokotoa" href="#" target="_blank" rel="nofollow noopener noreferrer"><span id="hitokoto"></span></a></div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/sign.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/duration.js"></script>
+<script src="/js/codeType.js"></script>
+<script src="/js/hitokoto.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
