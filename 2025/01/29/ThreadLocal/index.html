@@ -19,22 +19,22 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="实现思路：  选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。  插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。  获取排行榜：取出堆元素并按热度降序排列。   1234567891011121314151617181920212223242526272829303132333435363738">
+    <meta name="description" content="TheadLocal有什么用？ThreadLocal 类允许每个线程绑定自己的值，可以将其形象地比喻为一个“存放数据的盒子”。每个线程都有自己独立的盒子，用于存储私有数据，确保不同线程之间的数据互不干扰。 创建一个 ThreadLocal 变量时，每个访问该变量的线程都会拥有一个独立的副本。这也是 ThreadLocal 名称的由来。线程可以通过 get() 方法获取自己线程的本地副本，或通过 s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TopK问题">
-<meta property="og:url" content="http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="ThreadLocal">
+<meta property="og:url" content="http://example.com/2025/01/29/ThreadLocal/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="实现思路：  选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。  插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。  获取排行榜：取出堆元素并按热度降序排列。   1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:description" content="TheadLocal有什么用？ThreadLocal 类允许每个线程绑定自己的值，可以将其形象地比喻为一个“存放数据的盒子”。每个线程都有自己独立的盒子，用于存储私有数据，确保不同线程之间的数据互不干扰。 创建一个 ThreadLocal 变量时，每个访问该变量的线程都会拥有一个独立的副本。这也是 ThreadLocal 名称的由来。线程可以通过 get() 方法获取自己线程的本地副本，或通过 s">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-29T05:28:11.000Z">
-<meta property="article:modified_time" content="2025-01-29T07:52:04.303Z">
+<meta property="article:published_time" content="2025-01-29T06:43:32.000Z">
+<meta property="article:modified_time" content="2025-01-29T06:58:06.952Z">
 <meta property="article:author" content="Bloom">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>TopK问题 - Bloomivy</title>
+  <title>ThreadLocal - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TopK问题"></span>
+            <span id="subtitle" data-typed-text="ThreadLocal"></span>
           
         </div>
 
@@ -229,7 +229,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-29 13:28" pubdate>
+        <time datetime="2025-01-29 14:43" pubdate>
           2025年1月29日 下午
         </time>
       </span>
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          385 字
+          1.1k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          4 分钟
+          10 分钟
         
       </span>
     
@@ -289,23 +289,60 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">TopK问题</h1>
+            <h1 id="seo-header">ThreadLocal</h1>
             
             
               <div class="markdown-body">
                 
-                <p>实现思路：</p>
+                <h1 id="TheadLocal有什么用？"><a href="#TheadLocal有什么用？" class="headerlink" title="TheadLocal有什么用？"></a>TheadLocal有什么用？</h1><p><code>ThreadLocal</code> 类允许每个线程绑定自己的值，可以将其形象地比喻为一个“存放数据的盒子”。每个线程都有自己独立的盒子，用于存储私有数据，确保不同线程之间的数据互不干扰。</p>
+<p>创建一个 <code>ThreadLocal</code> 变量时，每个访问该变量的线程都会拥有一个独立的副本。这也是 <code>ThreadLocal</code> 名称的由来。线程可以通过 <code>get()</code> 方法获取自己线程的本地副本，或通过 <code>set()</code> 方法修改该副本的值，从而避免了线程安全问题。</p>
+<h1 id="ThreadLocal原理"><a href="#ThreadLocal原理" class="headerlink" title="ThreadLocal原理"></a>ThreadLocal原理</h1><p><code>Thread</code>类源代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Thread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-comment">//......</span><br>    <span class="hljs-comment">//与此线程有关的ThreadLocal值。由ThreadLocal类维护</span><br>    ThreadLocal.<span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">threadLocals</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-comment">//与此线程有关的InheritableThreadLocal值。由InheritableThreadLocal类维护</span><br>    ThreadLocal.<span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">inheritableThreadLocals</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-comment">//......</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Thread</code> 类中有一个 <code>threadLocals</code> 和 一个 <code>inheritableThreadLocals</code> 变量，它们都是 <code>ThreadLocalMap</code> 类型的变量,我们可以把 <code>ThreadLocalMap</code> 理解为<code>ThreadLocal</code> 类实现的定制化的 <code>HashMap</code>。默认情况下这两个变量都是 null，只有当前线程调用 <code>ThreadLocal</code> 类的 <code>set</code>或<code>get</code>方法时才创建它们，实际上调用这两个方法的时候，我们调用的是<code>ThreadLocalMap</code>类对应的 <code>get()</code>、<code>set()</code>方法。</p>
+<p>ThreadLocal类的set()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">set</span><span class="hljs-params">(T value)</span> &#123;<br>    <span class="hljs-comment">//获取当前请求的线程</span><br>    <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> Thread.currentThread();<br>    <span class="hljs-comment">//取出 Thread 类内部的 threadLocals 变量(哈希表结构)</span><br>    <span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> getMap(t);<br>    <span class="hljs-keyword">if</span> (map != <span class="hljs-literal">null</span>)<br>        <span class="hljs-comment">// 将需要存储的值放入到这个哈希表中</span><br>        map.set(<span class="hljs-built_in">this</span>, value);<br>    <span class="hljs-keyword">else</span><br>        createMap(t, value);<br>&#125;<br>ThreadLocalMap <span class="hljs-title function_">getMap</span><span class="hljs-params">(Thread t)</span> &#123;<br>    <span class="hljs-keyword">return</span> t.threadLocals;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最终的变量是放在了当前线程的 <code>ThreadLocalMap</code> 中，并不是存在 <code>ThreadLocal</code> 上，<code>ThreadLocal</code> 可以理解为只是<code>ThreadLocalMap</code>的封装，传递了变量值。 <code>ThrealLocal</code> 类中可以通过<code>Thread.currentThread()</code>获取到当前线程对象后，直接通过<code>getMap(Thread t)</code>可以访问到该线程的<code>ThreadLocalMap</code>对象。</p>
+<p>每个<code>Thread</code>中都具备一个<code>ThreadLocalMap</code>，而<code>ThreadLocalMap</code>可以存储以<code>ThreadLocal</code>为 key ，Object 对象为 value 的键值对。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Java">ThreadLocalMap(ThreadLocal&lt;?&gt; firstKey, Object firstValue) &#123;<br>    <span class="hljs-comment">//......</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="ThreadLocal-内存泄露问题是怎么导致的？"><a href="#ThreadLocal-内存泄露问题是怎么导致的？" class="headerlink" title="ThreadLocal 内存泄露问题是怎么导致的？"></a>ThreadLocal 内存泄露问题是怎么导致的？</h1><p><code>ThreadLocal</code> 内存泄漏的根本原因在于其内部实现机制。</p>
+<p>每个线程维护一个名为 <code>ThreadLocalMap</code> 的 map。 当你使用 <code>ThreadLocal</code> 存储值时，实际上是将值存储在当前线程的 <code>ThreadLocalMap</code> 中，其中 <code>ThreadLocal</code> 实例本身作为 key，而你要存储的值作为 value。</p>
+<p><code>ThreadLocalMap</code> 的 <code>key</code> 和 <code>value</code> 引用机制：</p>
+<ul>
+<li><p>key 是弱引用：<code>ThreadLocalMap</code> 中的 key 是 <code>ThreadLocal</code> 的弱引用 (<code>WeakReference&lt;ThreadLocal&lt;?&gt;&gt;</code>)。 这意味着，如果 <code>ThreadLocal</code> 实例不再被任何强引用指向，垃圾回收器会在下次 GC 时回收该实例，导致 <code>ThreadLocalMap</code> 中对应的 key 变为 <code>null</code>。</p>
+</li>
+<li><p>value 是强引用：<code>ThreadLocalMap</code> 中的 value 是强引用。 即使 key 被回收（变为 <code>null</code>），value 仍然存在于 <code>ThreadLocalMap</code> 中，被强引用，不会被回收。</p>
+</li>
+</ul>
+<p>当 <code>ThreadLocal</code> 实例失去强引用后，其对应的 value 仍然存在于 <code>ThreadLocalMap</code> 中，因为 <code>Entry</code> 对象强引用了它。如果线程持续存活（例如线程池中的线程），<code>ThreadLocalMap</code> 也会一直存在，导致 key 为 <code>null</code> 的 entry 无法被垃圾回收，机会造成内存泄漏。</p>
+<p>内存泄漏的发生需要同时满足两个条件：</p>
 <ol>
-<li><p>选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。</p>
+<li><p><code>ThreadLocal</code> 实例不再被强引用；</p>
 </li>
-<li><p>插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。</p>
-</li>
-<li><p>获取排行榜：取出堆元素并按热度降序排列。</p>
+<li><p>线程持续存活，导致 <code>ThreadLocalMap</code> 长期存在。</p>
 </li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotSearchRanking</span> &#123;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotSearchItem</span> &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String keyword;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> heat;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">HotSearchItem</span><span class="hljs-params">(String keyword, <span class="hljs-type">int</span> heat)</span> &#123;<br>            <span class="hljs-built_in">this</span>.keyword = keyword;<br>            <span class="hljs-built_in">this</span>.heat = heat;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getHeat</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> heat;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getKeyword</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> keyword;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> keyword + <span class="hljs-string">&quot;(&quot;</span> + heat + <span class="hljs-string">&quot;)&quot;</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> PriorityQueue&lt;HotSearchItem&gt; minHeap;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> k;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HotSearchRanking</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-built_in">this</span>.k = k;<br>        <span class="hljs-comment">// 初始化小顶堆，按热度升序排序</span><br>        <span class="hljs-built_in">this</span>.minHeap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(HotSearchItem::getHeat));<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(HotSearchItem item)</span> &#123;<br>        <span class="hljs-keyword">if</span> (item == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">if</span> (minHeap.size() &lt; k) &#123;<br>            minHeap.offer(item);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 仅当新元素热度大于堆顶时替换</span><br>            <span class="hljs-keyword">if</span> (item.getHeat() &gt; minHeap.peek().getHeat()) &#123;<br>                minHeap.poll();<br>                minHeap.offer(item);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> List&lt;HotSearchItem&gt; <span class="hljs-title function_">getTopK</span><span class="hljs-params">()</span> &#123;<br>        List&lt;HotSearchItem&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(minHeap);<br>        <span class="hljs-comment">// 按热度降序排序以形成排行榜</span><br>        result.sort(Comparator.comparingInt(HotSearchItem::getHeat).reversed());<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">HotSearchRanking</span> <span class="hljs-variable">ranking</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchRanking</span>(<span class="hljs-number">3</span>);<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Java&quot;</span>, <span class="hljs-number">50</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Python&quot;</span>, <span class="hljs-number">30</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;C++&quot;</span>, <span class="hljs-number">70</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;JavaScript&quot;</span>, <span class="hljs-number">60</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-number">65</span>));<br><br>        List&lt;HotSearchItem&gt; top = ranking.getTopK();<br>        System.out.println(<span class="hljs-string">&quot;实时热搜排行榜TOP3:&quot;</span>);<br>        <span class="hljs-keyword">for</span> (HotSearchItem item : top) &#123;<br>            System.out.println(item);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="如何跨线程传递ThreadLocal的值？"><a href="#如何跨线程传递ThreadLocal的值？" class="headerlink" title="如何跨线程传递ThreadLocal的值？"></a>如何跨线程传递ThreadLocal的值？</h2><p>如果想要在异步场景下传递 ThreadLocal 值，有两种解决方案：</p>
+<ul>
+<li><p><code>InheritableThreadLocal</code> ：<code>InheritableThreadLocal</code> 是 JDK1.2 提供的工具，继承自 <code>ThreadLocal</code> 。使用 <code>InheritableThreadLocal</code> 时，会在创建子线程时，令子线程继承父线程中的 <code>ThreadLocal</code> 值，但是无法支持线程池场景下的 <code>ThreadLocal</code> 值传递。</p>
+</li>
+<li><p><code>TransmittableThreadLocal</code> ： <code>TransmittableThreadLocal</code> （简称 TTL） 是阿里巴巴开源的工具类，继承并加强了<code>InheritableThreadLocal</code>类，可以在线程池的场景下支持 <code>ThreadLocal</code> 值传递。</p>
+</li>
+</ul>
+<h3 id="InheritableThreadLocal-原理"><a href="#InheritableThreadLocal-原理" class="headerlink" title="InheritableThreadLocal 原理"></a><code>InheritableThreadLocal</code> 原理</h3><p>在 <code>Thread</code> 类中添加了一个新的 <code>ThreadLocalMap</code> ，命名为 <code>inheritableThreadLocals</code> ，该变量用于存储需要跨线程传递的 <code>ThreadLocal</code> 值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Thread</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    ThreadLocal.<span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">threadLocals</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    ThreadLocal.<span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">inheritableThreadLocals</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>该方法确保每次插入和调整的时间复杂度为O(log K)，获取排行榜的时间复杂度为O(K log K)，适合处理实时更新的热搜数据。</p>
+<p>通过改造 <code>Thread</code> 类的构造方法来实现，在创建 <code>Thread</code> 线程时，拿到父线程的 <code>inheritableThreadLocals</code> 变量赋值给子线程即可。</p>
+<h3 id="TransmittableThreadLocal-原理"><a href="#TransmittableThreadLocal-原理" class="headerlink" title="TransmittableThreadLocal 原理"></a><code>TransmittableThreadLocal</code> 原理</h3><p>阿里巴巴无法改动 JDK 的源码，因此他内部通过 装饰器模式 在原有的功能上做增强，以此来实现线程池场景下的 <code>ThreadLocal</code> 值传递。</p>
+<p>TTL 改造的地方有两处：</p>
+<ul>
+<li><p>实现自定义的 <code>Thread</code> ，在 <code>run()</code> 方法内部做 <code>ThreadLocal</code> 变量的赋值操作。</p>
+</li>
+<li><p>基于 线程池 进行装饰，在 <code>execute()</code> 方法中，不提交 JDK 内部的 <code>Thread</code> ，而是提交自定义的 <code>Thread</code> 。</p>
+</li>
+</ul>
 
                 
               </div>
@@ -324,7 +361,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
 
@@ -339,7 +376,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
       
     </div>
   
@@ -351,8 +388,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TopK问题</div>
-      <div>http://example.com/2025/01/29/TopK问题/</div>
+      <div>ThreadLocal</div>
+      <div>http://example.com/2025/01/29/ThreadLocal/</div>
     </div>
     <div class="license-meta">
       
@@ -393,7 +430,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Fluid</a> <br>
-                <strong>本文链接: </strong><a href="http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/">http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/</a> <br>
+                <strong>本文链接: </strong><a href="http://example.com/2025/01/29/ThreadLocal/">http://example.com/2025/01/29/ThreadLocal/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -403,9 +440,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/29/JUC/" title="JUC">
+                      <a href="/2025/01/29/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程池">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JUC</span>
+                        <span class="hidden-mobile">线程池</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -413,8 +450,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/28/Go%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" title="Go基本语法">
-                        <span class="hidden-mobile">Go基本语法</span>
+                      <a href="/2025/01/29/JUC/" title="JUC">
+                        <span class="hidden-mobile">JUC</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

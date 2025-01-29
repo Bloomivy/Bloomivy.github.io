@@ -19,22 +19,22 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="实现思路：  选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。  插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。  获取排行榜：取出堆元素并按热度降序排列。   1234567891011121314151617181920212223242526272829303132333435363738">
+    <meta name="description" content="Future 类是异步思想的典型运用，主要用在一些需要执行耗时任务的场景，避免程序一直原地等待耗时任务执行完成，执行效率太低。具体来说是这样的：当我们执行某一耗时的任务时，可以将这个耗时任务交给一个子线程去异步执行，同时我们可以干点其他事情，不用傻傻等待耗时任务执行完成。等我们的事情干完后，我们再通过 Future 类获取到耗时任务的执行结果。这样一来，程序的执行效率就明显提高了。 在 Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TopK问题">
-<meta property="og:url" content="http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="Future类相关">
+<meta property="og:url" content="http://example.com/2025/01/29/Future%E7%B1%BB%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="实现思路：  选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。  插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。  获取排行榜：取出堆元素并按热度降序排列。   1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:description" content="Future 类是异步思想的典型运用，主要用在一些需要执行耗时任务的场景，避免程序一直原地等待耗时任务执行完成，执行效率太低。具体来说是这样的：当我们执行某一耗时的任务时，可以将这个耗时任务交给一个子线程去异步执行，同时我们可以干点其他事情，不用傻傻等待耗时任务执行完成。等我们的事情干完后，我们再通过 Future 类获取到耗时任务的执行结果。这样一来，程序的执行效率就明显提高了。 在 Java">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-29T05:28:11.000Z">
-<meta property="article:modified_time" content="2025-01-29T07:52:04.303Z">
+<meta property="article:published_time" content="2025-01-29T07:41:33.000Z">
+<meta property="article:modified_time" content="2025-01-29T07:50:17.762Z">
 <meta property="article:author" content="Bloom">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>TopK问题 - Bloomivy</title>
+  <title>Future类相关 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TopK问题"></span>
+            <span id="subtitle" data-typed-text="Future类相关"></span>
           
         </div>
 
@@ -229,7 +229,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-29 13:28" pubdate>
+        <time datetime="2025-01-29 15:41" pubdate>
           2025年1月29日 下午
         </time>
       </span>
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          385 字
+          1.1k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          4 分钟
+          9 分钟
         
       </span>
     
@@ -289,23 +289,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">TopK问题</h1>
+            <h1 id="seo-header">Future类相关</h1>
             
             
               <div class="markdown-body">
                 
-                <p>实现思路：</p>
-<ol>
-<li><p>选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。</p>
-</li>
-<li><p>插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。</p>
-</li>
-<li><p>获取排行榜：取出堆元素并按热度降序排列。</p>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotSearchRanking</span> &#123;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HotSearchItem</span> &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String keyword;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> heat;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">HotSearchItem</span><span class="hljs-params">(String keyword, <span class="hljs-type">int</span> heat)</span> &#123;<br>            <span class="hljs-built_in">this</span>.keyword = keyword;<br>            <span class="hljs-built_in">this</span>.heat = heat;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getHeat</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> heat;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getKeyword</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> keyword;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> keyword + <span class="hljs-string">&quot;(&quot;</span> + heat + <span class="hljs-string">&quot;)&quot;</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> PriorityQueue&lt;HotSearchItem&gt; minHeap;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> k;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HotSearchRanking</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-built_in">this</span>.k = k;<br>        <span class="hljs-comment">// 初始化小顶堆，按热度升序排序</span><br>        <span class="hljs-built_in">this</span>.minHeap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(HotSearchItem::getHeat));<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(HotSearchItem item)</span> &#123;<br>        <span class="hljs-keyword">if</span> (item == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">if</span> (minHeap.size() &lt; k) &#123;<br>            minHeap.offer(item);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 仅当新元素热度大于堆顶时替换</span><br>            <span class="hljs-keyword">if</span> (item.getHeat() &gt; minHeap.peek().getHeat()) &#123;<br>                minHeap.poll();<br>                minHeap.offer(item);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> List&lt;HotSearchItem&gt; <span class="hljs-title function_">getTopK</span><span class="hljs-params">()</span> &#123;<br>        List&lt;HotSearchItem&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(minHeap);<br>        <span class="hljs-comment">// 按热度降序排序以形成排行榜</span><br>        result.sort(Comparator.comparingInt(HotSearchItem::getHeat).reversed());<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">HotSearchRanking</span> <span class="hljs-variable">ranking</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchRanking</span>(<span class="hljs-number">3</span>);<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Java&quot;</span>, <span class="hljs-number">50</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Python&quot;</span>, <span class="hljs-number">30</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;C++&quot;</span>, <span class="hljs-number">70</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;JavaScript&quot;</span>, <span class="hljs-number">60</span>));<br>        ranking.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HotSearchItem</span>(<span class="hljs-string">&quot;Go&quot;</span>, <span class="hljs-number">65</span>));<br><br>        List&lt;HotSearchItem&gt; top = ranking.getTopK();<br>        System.out.println(<span class="hljs-string">&quot;实时热搜排行榜TOP3:&quot;</span>);<br>        <span class="hljs-keyword">for</span> (HotSearchItem item : top) &#123;<br>            System.out.println(item);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <p><code>Future</code> 类是异步思想的典型运用，主要用在一些需要执行耗时任务的场景，避免程序一直原地等待耗时任务执行完成，执行效率太低。具体来说是这样的：当我们执行某一耗时的任务时，可以将这个耗时任务交给一个子线程去异步执行，同时我们可以干点其他事情，不用傻傻等待耗时任务执行完成。等我们的事情干完后，我们再通过 <code>Future</code> 类获取到耗时任务的执行结果。这样一来，程序的执行效率就明显提高了。</p>
+<p>在 Java 中，<code>Future</code> 类只是一个泛型接口，位于 <code>java.util.concurrent</code> 包下，其中定义了 5 个方法，主要包括下面这 4 个功能：</p>
+<ul>
+<li>取消任务；</li>
+<li>判断任务是否被取消;</li>
+<li>判断任务是否已经执行完成;</li>
+<li>获取任务执行结果。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// V 代表了Future执行的任务返回值的类型</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Future</span>&lt;V&gt; &#123;<br>    <span class="hljs-comment">// 取消任务执行</span><br>    <span class="hljs-comment">// 成功取消返回 true，否则返回 false</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">cancel</span><span class="hljs-params">(<span class="hljs-type">boolean</span> mayInterruptIfRunning)</span>;<br>    <span class="hljs-comment">// 判断任务是否被取消</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">isCancelled</span><span class="hljs-params">()</span>;<br>    <span class="hljs-comment">// 判断任务是否已经执行完成</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">isDone</span><span class="hljs-params">()</span>;<br>    <span class="hljs-comment">// 获取任务执行结果</span><br>    V <span class="hljs-title function_">get</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException, ExecutionException;<br>    <span class="hljs-comment">// 指定时间内没有返回计算结果就抛出 TimeOutException 异常</span><br>    V <span class="hljs-title function_">get</span><span class="hljs-params">(<span class="hljs-type">long</span> timeout, TimeUnit unit)</span><br><br>        <span class="hljs-keyword">throws</span> InterruptedException, ExecutionException, TimeoutExceptio<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>该方法确保每次插入和调整的时间复杂度为O(log K)，获取排行榜的时间复杂度为O(K log K)，适合处理实时更新的热搜数据。</p>
+<h1 id="Callable-与-Future有什么关系？"><a href="#Callable-与-Future有什么关系？" class="headerlink" title="Callable 与 Future有什么关系？"></a>Callable 与 Future有什么关系？</h1><p><code>FutureTask</code> 提供了 <code>Future</code> 接口的基本实现，常用来封装 <code>Callable</code> 和 <code>Runnable</code>，具有取消任务、查看任务是否执行完成以及获取任务执行结果的方法。<code>ExecutorService.submit()</code> 方法返回的其实就是 <code>Future</code> 的实现类 <code>FutureTask</code> 。</p>
+<p><code>FutureTask</code> 不光实现了 <code>Future</code>接口，还实现了<code>Runnable</code> 接口，因此可以作为任务直接被线程执行。</p>
+<p><code>FutureTask</code> 有两个构造函数，可传入 <code>Callable</code> 或者 <code>Runnable</code> 对象。实际上，传入 <code>Runnable</code> 对象也会在方法内部转换为 <code>Callable</code> 对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">FutureTask</span><span class="hljs-params">(Callable&lt;V&gt; callable)</span> &#123;<br>    <span class="hljs-keyword">if</span> (callable == <span class="hljs-literal">null</span>)<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NullPointerException</span>();<br>    <span class="hljs-built_in">this</span>.callable = callable;<br>    <span class="hljs-built_in">this</span>.state = NEW;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-title function_">FutureTask</span><span class="hljs-params">(Runnable runnable, V result)</span> &#123;<br>    <span class="hljs-comment">// 通过适配器RunnableAdapter来将Runnable对象runnable转换成Callable对象</span><br>    <span class="hljs-built_in">this</span>.callable = Executors.callable(runnable, result);<br>    <span class="hljs-built_in">this</span>.state = NEW;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>FutureTask</code> 相当于对 <code>Callable</code> 进行了封装，管理着任务执行的情况，存储了 <code>Callable</code> 的 <code>call</code> 方法的任务执行结果。</p>
+<h1 id="CompletableFuture-类有什么用？"><a href="#CompletableFuture-类有什么用？" class="headerlink" title="CompletableFuture 类有什么用？"></a>CompletableFuture 类有什么用？</h1><p><code>Future</code> 在实际使用过程中存在一些局限性比如不支持异步任务的编排组合、获取计算结果的 <code>get()</code> 方法为阻塞调用。</p>
+<p><code>CompletableFuture</code> 除了提供了更为好用和强大的 <code>Future</code> 特性之外，还提供了函数式编程、异步任务编排组合（可以将多个异步任务串联起来，组成一个完整的链式调用）等能力。</p>
+<h2 id="一个任务需要依赖另外两个任务执行完之后再执行，怎么设计？"><a href="#一个任务需要依赖另外两个任务执行完之后再执行，怎么设计？" class="headerlink" title="一个任务需要依赖另外两个任务执行完之后再执行，怎么设计？"></a>一个任务需要依赖另外两个任务执行完之后再执行，怎么设计？</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// T1</span><br>CompletableFuture&lt;Void&gt; futureT1 = CompletableFuture.runAsync(() -&gt; &#123;<br>    System.out.println(<span class="hljs-string">&quot;T1 is executing. Current time：&quot;</span> + DateUtil.now());<br>    <span class="hljs-comment">// 模拟耗时操作</span><br>    ThreadUtil.sleep(<span class="hljs-number">1000</span>);<br>&#125;);<br><span class="hljs-comment">// T2</span><br>CompletableFuture&lt;Void&gt; futureT2 = CompletableFuture.runAsync(() -&gt; &#123;<br>    System.out.println(<span class="hljs-string">&quot;T2 is executing. Current time：&quot;</span> + DateUtil.now());<br>    ThreadUtil.sleep(<span class="hljs-number">1000</span>);<br>&#125;);<br><br><span class="hljs-comment">// 使用allOf()方法合并T1和T2的CompletableFuture，等待它们都完成</span><br>CompletableFuture&lt;Void&gt; bothCompleted = CompletableFuture.allOf(futureT1, futureT2);<br><span class="hljs-comment">// 当T1和T2都完成后，执行T3</span><br>bothCompleted.thenRunAsync(() -&gt; System.out.println(<span class="hljs-string">&quot;T3 is executing after T1 and T2 have completed.Current time：&quot;</span> + DateUtil.now()));<br><span class="hljs-comment">// 等待所有任务完成，验证效果</span><br>ThreadUtil.sleep(<span class="hljs-number">3000</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用-CompletableFuture，有一个任务失败，如何处理异常？"><a href="#使用-CompletableFuture，有一个任务失败，如何处理异常？" class="headerlink" title="使用 CompletableFuture，有一个任务失败，如何处理异常？"></a>使用 CompletableFuture，有一个任务失败，如何处理异常？</h2><ul>
+<li><p>使用 <code>whenComplete</code> 方法可以在任务完成时触发回调函数，并正确地处理异常，而不是让异常被吞噬或丢失。</p>
+</li>
+<li><p>使用 <code>exceptionally</code> 方法可以处理异常并重新抛出，以便异常能够传播到后续阶段，而不是让异常被忽略或终止。</p>
+</li>
+<li><p>使用 <code>handle</code> 方法可以处理正常的返回结果和异常，并返回一个新的结果，而不是让异常影响正常的业务逻辑。</p>
+</li>
+<li><p>使用 <code>CompletableFuture.allOf</code> 方法可以组合多个 <code>CompletableFuture</code>，并统一处理所有任务的异常，而不是让异常处理过于冗长或重复。</p>
+</li>
+</ul>
+<h2 id="在使用-CompletableFuture-的时候为什么要自定义线程池？"><a href="#在使用-CompletableFuture-的时候为什么要自定义线程池？" class="headerlink" title="在使用 CompletableFuture 的时候为什么要自定义线程池？"></a>在使用 CompletableFuture 的时候为什么要自定义线程池？</h2><ul>
+<li>隔离性：为不同任务分配独立的线程池，避免全局线程池资源争夺。</li>
+<li>资源控制：根据任务特性调整线程池大小和队列类型，优化性能表现。</li>
+<li>异常处理：通过自定义 <code>ThreadFactory</code> 更好地处理线程中的异常情况。</li>
+</ul>
 
                 
               </div>
@@ -324,7 +347,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
 
@@ -339,7 +362,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
       
     </div>
   
@@ -351,8 +374,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TopK问题</div>
-      <div>http://example.com/2025/01/29/TopK问题/</div>
+      <div>Future类相关</div>
+      <div>http://example.com/2025/01/29/Future类相关/</div>
     </div>
     <div class="license-meta">
       
@@ -393,7 +416,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Fluid</a> <br>
-                <strong>本文链接: </strong><a href="http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/">http://example.com/2025/01/29/TopK%E9%97%AE%E9%A2%98/</a> <br>
+                <strong>本文链接: </strong><a href="http://example.com/2025/01/29/Future%E7%B1%BB%E7%9B%B8%E5%85%B3/">http://example.com/2025/01/29/Future%E7%B1%BB%E7%9B%B8%E5%85%B3/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -403,18 +426,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/29/JUC/" title="JUC">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JUC</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/28/Go%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" title="Go基本语法">
-                        <span class="hidden-mobile">Go基本语法</span>
+                      <a href="/2025/01/29/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程池">
+                        <span class="hidden-mobile">线程池</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
