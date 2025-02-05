@@ -22,7 +22,7 @@
     <meta name="description" content="Canal 简介Canal [kə’næl]，译意为水道&#x2F;管道&#x2F;沟渠，是阿里巴巴开源的一个 MySQL 数据库增量订阅和消费中间件，将自己伪装成 MySQL 的从库，获取 MySQL 的 binlog（二进制日志）数据，从而实现对数据库变更的实时监听。 官方地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;canal 。  实现思路  Canal 通过解析数据库的 b">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Canal搭建与使用">
-<meta property="og:url" content="http://example.com/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="http://bloomivy.github.io/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Bloomivy">
 <meta property="og:description" content="Canal 简介Canal [kə’næl]，译意为水道&#x2F;管道&#x2F;沟渠，是阿里巴巴开源的一个 MySQL 数据库增量订阅和消费中间件，将自己伪装成 MySQL 的从库，获取 MySQL 的 binlog（二进制日志）数据，从而实现对数据库变更的实时监听。 官方地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;canal 。  实现思路  Canal 通过解析数据库的 b">
 <meta property="og:locale" content="zh_CN">
@@ -92,7 +92,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"bloomivy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -592,7 +592,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Canal搭建与使用</div>
-      <div>http://example.com/2025/02/02/Canal搭建与使用/</div>
+      <div>http://bloomivy.github.io/2025/02/02/Canal搭建与使用/</div>
     </div>
     <div class="license-meta">
       
@@ -633,7 +633,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
-                <strong>本文链接: </strong><a href="http://example.com/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">http://example.com/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">http://bloomivy.github.io/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
