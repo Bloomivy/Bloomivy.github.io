@@ -240,15 +240,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/30/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF/" target="_self">
-          零拷贝技术
+        <a href="/2025/02/05/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" target="_self">
+          类加载机制
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/30/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/05/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" target="_self">
         <div>
-          为什么要有DMA技术？没有DMA技术之前，I&#x2F;O过程：  什么是 DMA 技术？简单理解就是，在进行 I&#x2F;O 设备和内存的数据传输的时候，数据搬运的工作全部交给 DMA 控制器，而 CPU 不再参与任何与数据搬运相关的事情，这样 CPU 就可以去处理别的事务。  CPU 不再参与「将数据从磁盘控制器缓冲区搬运到内核空间」的工作，这部分工作全程由 DMA 完成。 传统的文件传输传
+          类加载过程类加载过程：加载-&gt;连接-&gt;初始化。连接过程又可分为三步：验证-&gt;准备-&gt;解析。 加载类加载过程的第一步，主要完成下面 3 件事情：  通过全类名获取定义此类的二进制字节流。  将字节流所代表的静态存储结构转换为方法区的运行时数据结构。  在内存中生成一个代表该类的 Class 对象，作为方法区这些数据的访问入口。   验证验证是连接阶段的第一步，这一阶段的目的是
         </div>
       </a>
 
@@ -256,130 +256,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-30 09:55" pubdate>
-              2025-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/OS/" class="category-chain-item">OS</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OS/">#OS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/01/30/IO%E6%A8%A1%E5%9E%8B/" target="_self">
-          IO模型
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/30/IO%E6%A8%A1%E5%9E%8B/" target="_self">
-        <div>
-          最基本的 Socket 模型客户端与服务器间通信，必须使用Socket编程，创建Socket时，可以指定网络层使用IPV4或者IPV6，传输层使用UDP还是TCP。 服务器端的Socket编程过程： 服务端首先调用 socket() 函数，创建网络协议为 IPv4，以及传输协议为 TCP 的 Socket ，接着调用 bind() 函数，给这个 Socket 绑定一个 IP 地址和端口。  绑定端
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-30 09:05" pubdate>
-              2025-01-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="category-chain-item">网络编程</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/01/29/Future%E7%B1%BB%E7%9B%B8%E5%85%B3/" target="_self">
-          Future类相关
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/29/Future%E7%B1%BB%E7%9B%B8%E5%85%B3/" target="_self">
-        <div>
-          Future 类是异步思想的典型运用，主要用在一些需要执行耗时任务的场景，避免程序一直原地等待耗时任务执行完成，执行效率太低。具体来说是这样的：当我们执行某一耗时的任务时，可以将这个耗时任务交给一个子线程去异步执行，同时我们可以干点其他事情，不用傻傻等待耗时任务执行完成。等我们的事情干完后，我们再通过 Future 类获取到耗时任务的执行结果。这样一来，程序的执行效率就明显提高了。 在 Java
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-29 15:41" pubdate>
-              2025-01-29
+            <time datetime="2025-02-05 14:08" pubdate>
+              2025-02-05
             </time>
           </div>
         
@@ -397,6 +275,13 @@
   <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/Java/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+  
 
       </span>
     
@@ -411,6 +296,8 @@
             
               <a href="/tags/Java/">#Java</a>
             
+              <a href="/tags/JVM/">#JVM</a>
+            
           </div>
         
       </div>
@@ -423,15 +310,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/29/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
-          线程池
+        <a href="/2025/02/05/JVM%E8%B0%83%E4%BC%98/" target="_self">
+          JVM调优
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/29/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/05/JVM%E8%B0%83%E4%BC%98/" target="_self">
         <div>
-          为什么要用线程池？ 降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。  创建线程池的常见方法方式一：通过ThreadPoolExecutor构造函数来创建 方式二：通过
+          性能监测的命令行工具操作系统层面：top、vmstat、iostat、netstat 等命令，可以监控系统整体的资源使用情况，比如说内存、CPU、IO 使用情况、网络使用情况。 JDK 自带的命令行工具层面，jps、jstat、jinfo、jmap、jhat、jstack、jcmd 等，可以查看 JVM 运行时信息、内存使用情况、堆栈信息等。 jmap 使用使用 jmap -heap &lt;pi
         </div>
       </a>
 
@@ -439,8 +326,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-29 15:05" pubdate>
-              2025-01-29
+            <time datetime="2025-02-05 13:57" pubdate>
+              2025-02-05
             </time>
           </div>
         
@@ -458,6 +345,13 @@
   <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/Java/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+  
 
       </span>
     
@@ -472,6 +366,8 @@
             
               <a href="/tags/Java/">#Java</a>
             
+              <a href="/tags/JVM/">#JVM</a>
+            
           </div>
         
       </div>
@@ -484,15 +380,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/29/ThreadLocal/" target="_self">
-          ThreadLocal
+        <a href="/2025/02/05/GC%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E8%A7%81%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" target="_self">
+          GC机制与常见垃圾回收器
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/29/ThreadLocal/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/05/GC%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E8%A7%81%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" target="_self">
         <div>
-          TheadLocal有什么用？ThreadLocal 类允许每个线程绑定自己的值，可以将其形象地比喻为一个“存放数据的盒子”。每个线程都有自己独立的盒子，用于存储私有数据，确保不同线程之间的数据互不干扰。 创建一个 ThreadLocal 变量时，每个访问该变量的线程都会拥有一个独立的副本。这也是 ThreadLocal 名称的由来。线程可以通过 get() 方法获取自己线程的本地副本，或通过 s
+          堆空间的基本结构Java 堆是垃圾收集器管理的主要区域，因此也被称作 GC 堆（Garbage Collected Heap）。从垃圾回收的角度来说，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆被划分为了几个不同的区域，这样我们就可以根据各个区域的特点选择合适的垃圾收集算法。 在 JDK 7 版本及 JDK 7 版本之前，堆内存被通常分为下面三部分：  新生代内存(Young Ge
         </div>
       </a>
 
@@ -500,8 +396,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-29 14:43" pubdate>
-              2025-01-29
+            <time datetime="2025-02-05 10:48" pubdate>
+              2025-02-05
             </time>
           </div>
         
@@ -519,6 +415,13 @@
   <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/Java/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+  
 
       </span>
     
@@ -533,6 +436,8 @@
             
               <a href="/tags/Java/">#Java</a>
             
+              <a href="/tags/JVM/">#JVM</a>
+            
           </div>
         
       </div>
@@ -545,15 +450,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/29/JUC/" target="_self">
-          JUC
+        <a href="/2025/02/05/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98/" target="_self">
+          对象内存问题
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/29/JUC/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/05/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98/" target="_self">
         <div>
-          线程的生命周期和状态Java 线程在运行的生命周期中的指定时刻只可能处于下面 6 种不同状态的其中一个状态：  NEW: 初始状态，线程被创建出来但没有被调用 start() 。 RUNNABLE: 运行状态，线程被调用了 start()等待运行的状态。 BLOCKED：阻塞状态，需要等待锁释放。 WAITING：等待状态，表示该线程需要等待其他线程做出一些特定动作（通知或中断）。 TIME_WA
+          对象的内存布局对象的内存布局是由 Java 虚拟机规范定义的，但具体的实现细节各有不同，如 HotSpot 和 OpenJ9 就不一样。 就拿我们常用的 HotSpot 来说吧。对象在内存中包括三部分：对象头、实例数据和对齐填充。 对象头对象头是对象存储在内存中的元信息，包含了Mark Word、类型指针等信息。Mark Word 存储了对象的运行时状态信息，包括锁、哈希值、GC 标记等。在 64
         </div>
       </a>
 
@@ -561,8 +466,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-29 13:41" pubdate>
-              2025-01-29
+            <time datetime="2025-02-05 10:18" pubdate>
+              2025-02-05
             </time>
           </div>
         
@@ -580,6 +485,13 @@
   <a href="/categories/Java/" class="category-chain-item">Java</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/Java/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
+  
 
       </span>
     
@@ -594,6 +506,8 @@
             
               <a href="/tags/Java/">#Java</a>
             
+              <a href="/tags/JVM/">#JVM</a>
+            
           </div>
         
       </div>
@@ -606,15 +520,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/29/TopK%E9%97%AE%E9%A2%98/" target="_self">
-          TopK问题
+        <a href="/2025/02/05/JVM%E7%9B%B8%E5%85%B3/" target="_self">
+          JVM内存结构
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/29/TopK%E9%97%AE%E9%A2%98/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/05/JVM%E7%9B%B8%E5%85%B3/" target="_self">
         <div>
-          实现思路：  选择小顶堆：维护当前最高的K个元素，堆顶是这K个中的最小值。新元素若大于堆顶，则替换堆顶并调整堆，确保堆中始终为Top K大元素。  插入逻辑：堆未满时直接插入；堆满时，新元素大于堆顶则替换，否则忽略。  获取排行榜：取出堆元素并按热度降序排列。   1234567891011121314151617181920212223242526272829303132333435363738
+          JVM 的结构体系JVM 可以大致划分为 类加载器、运行时数据区、执行引擎  类加载器负责负责从文件系统、网络或其他来源加载 Class 文件，将Class 文件中的二进制数据读入到内存当中。  运行时数据区，JVM 在执行 Java 程序时，需要在内存中分配空间来处理各种数据，这些内存区域按照 Java 虚拟机规范可以划分为方法区、堆、虚拟机栈、程序计数器和本地方法栈。  执行引擎负责执行字节码
         </div>
       </a>
 
@@ -622,8 +536,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-29 13:28" pubdate>
-              2025-01-29
+            <time datetime="2025-02-05 09:25" pubdate>
+              2025-02-05
             </time>
           </div>
         
@@ -638,8 +552,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/Java/JVM/" class="category-chain-item">JVM</a>
+  
+  
+
   
 
       </span>
@@ -653,7 +574,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+              <a href="/tags/Java/">#Java</a>
+            
+              <a href="/tags/JVM/">#JVM</a>
             
           </div>
         
@@ -667,13 +590,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/28/Go%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_self">
-          Go基本语法
+        <a href="/2025/02/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" target="_self">
+          排序算法
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/28/Go%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/03/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" target="_self">
         <div>
           
         </div>
@@ -683,8 +606,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-28 10:06" pubdate>
-              2025-01-28
+            <time datetime="2025-02-03 20:33" pubdate>
+              2025-02-03
             </time>
           </div>
         
@@ -700,15 +623,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/28/ConcurrentHashMap%E6%BA%90%E7%A0%81/" target="_self">
-          ConcurrentHashMap源码
+        <a href="/2025/02/02/Logstash%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          Logstash安装与使用
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/28/ConcurrentHashMap%E6%BA%90%E7%A0%81/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/02/Logstash%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
         <div>
-          ConcurrentHashMap 1.7  存储结构   Java 7 中 ConcurrentHashMap 的存储结构如上图，ConcurrnetHashMap 由很多个 Segment 组合，而每一个 Segment 是一个类似于 HashMap 的结构，所以每一个 HashMap 的内部可以进行扩容。但是 Segment 的个数一旦初始化就不能改变，默认 Segment 的个数是 16
+          什么是 Logstash?Logstash 是一种开源的服务器端数据处理管道，能够从多个来源采集数据，转换数据，然后将数据发送到您喜欢的 “存储库” ，如 Elasticsearch 中 下载与安装 Logstash访问 Logstash 官网历史版本下载链接：https://www.elastic.co/downloads/past-releases  选择 Logstash;  选择适当版本（
         </div>
       </a>
 
@@ -716,8 +639,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-28 10:05" pubdate>
-              2025-01-28
+            <time datetime="2025-02-02 10:49" pubdate>
+              2025-02-02
             </time>
           </div>
         
@@ -732,7 +655,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
   
   
 
@@ -747,7 +670,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Java/">#Java</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>
             
           </div>
         
@@ -761,15 +684,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/28/HashMap%E6%BA%90%E7%A0%81/" target="_self">
-          HashMap源码
+        <a href="/2025/02/02/Elasticsearch%20%E5%88%86%E8%AF%8D%E5%99%A8/" target="_self">
+          Elasticsearch 分词器
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/28/HashMap%E6%BA%90%E7%A0%81/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/02/Elasticsearch%20%E5%88%86%E8%AF%8D%E5%99%A8/" target="_self">
         <div>
-          底层数据结构分析JDK1.8之前JDK1.8 之前 HashMap 底层是 数组和链表 结合在一起使用也就是 链表散列。 HashMap 通过 key 的 hashCode 经过扰动函数处理过后得到 hash 值，然后通过 (n - 1) &amp; hash 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key
+          倒排索引（Inverted Index）是 Elasticsearch 全文搜索能力的基础，也是搜索引擎普遍采用的一种高效数据结构。通过倒排索引，Elasticsearch 可以快速定位包含某个关键词的文档，极大地提升搜索性能。 什么是倒排索引？倒排索引是从关键词到文档的映射。它与传统的正排索引不同，正排索引存储的是文档及其内容，而倒排索引反其道而行之，存储的是每个关键词以及包含这些关键词的文档信
         </div>
       </a>
 
@@ -777,8 +700,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-28 09:49" pubdate>
-              2025-01-28
+            <time datetime="2025-02-02 10:17" pubdate>
+              2025-02-02
             </time>
           </div>
         
@@ -793,7 +716,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
   
   
 
@@ -808,7 +731,129 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Java/">#Java</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/02/02/Kibana%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          Kibana安装与使用
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/02/Kibana%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+        <div>
+          Kibana 简介Kibana 是一款强大的开源工具，用于可视化和分析 Elasticsearch 中存储的数据。 其优势如下：  强大的数据可视化能力：  Kibana 提供了多种图表类型，如柱状图、折线图、饼图等，可以直观地展示 Elasticsearch 中的数据。  用户可以根据自己的需求创建自定义的仪表板，将多个视图组合在一起，以获得全面的数据概览。    灵活的数据探索：  通过 Di
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-02-02 09:44" pubdate>
+              2025-02-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          Canal搭建与使用
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/02/Canal%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+        <div>
+          Canal 简介Canal [kə’næl]，译意为水道&#x2F;管道&#x2F;沟渠，是阿里巴巴开源的一个 MySQL 数据库增量订阅和消费中间件，将自己伪装成 MySQL 的从库，获取 MySQL 的 binlog（二进制日志）数据，从而实现对数据库变更的实时监听。 官方地址：https://github.com/alibaba/canal 。  实现思路  Canal 通过解析数据库的 b
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-02-02 08:49" pubdate>
+              2025-02-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>
             
           </div>
         
@@ -820,7 +865,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
