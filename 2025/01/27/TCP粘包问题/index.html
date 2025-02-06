@@ -19,19 +19,35 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="计网相关">
-<meta property="og:url" content="http://bloomivy.github.io/2025/01/27/%E8%AE%A1%E7%BD%91%E7%9B%B8%E5%85%B3/index.html">
+    <meta name="description" content="四层网络模型 四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。  为什么要将数据切片？把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP的粘包问题">
+<meta property="og:url" content="http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Bloomivy">
+<meta property="og:description" content="四层网络模型 四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。  为什么要将数据切片？把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161735361.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161910183.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162049748.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162259342.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162514666.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162606151.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162747384.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162904331.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163027122.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163123335.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163257867.png">
 <meta property="article:published_time" content="2025-01-27T06:01:52.000Z">
-<meta property="article:modified_time" content="2025-01-27T06:01:52.503Z">
+<meta property="article:modified_time" content="2025-02-06T08:33:40.321Z">
 <meta property="article:author" content="Bloom">
+<meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png">
   
   
   
-  <title>计网相关 - Bloomivy</title>
+  <title>TCP的粘包问题 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +227,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="计网相关"></span>
+            <span id="subtitle" data-typed-text="TCP的粘包问题"></span>
           
         </div>
 
@@ -239,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          2.5k 字
         
       </span>
     
@@ -250,7 +266,7 @@
         
         
         
-          1 分钟
+          21 分钟
         
       </span>
     
@@ -287,12 +303,89 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">计网相关</h1>
+            <h1 id="seo-header">TCP的粘包问题</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <h1 id="四层网络模型"><a href="#四层网络模型" class="headerlink" title="四层网络模型"></a>四层网络模型</h1><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png" srcset="/img/loading.gif" lazyload></p>
+<p>四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161735361.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="为什么要将数据切片？"><a href="#为什么要将数据切片？" class="headerlink" title="为什么要将数据切片？"></a>为什么要将数据切片？</h1><p>把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络层，一般认为是的MTU（1500），直接传入整个消息，会超过水管的最大承受范围，那么，就需要进行切片，成为一个个数据包，这样消息才能正常通过“水管”。</p>
+<h1 id="MTU-与-MSS-区别"><a href="#MTU-与-MSS-区别" class="headerlink" title="MTU 与 MSS 区别"></a>MTU 与 MSS 区别</h1><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161910183.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>MTU: Maximum Transmit Unit，最大传输单元。 由网络接口层（数据链路层）提供给网络层最大一次传输数据的大小；一般 MTU&#x3D;1500 Byte。<br>假设IP层有 &lt;&#x3D; 1500 byte 需要发送，只需要一个 IP 包就可以完成发送任务；假设 IP 层有&gt; 1500 byte 数据需要发送，需要分片才能完成发送，分片后的 IP Header ID 相同。</p>
+</li>
+<li><p>MSS：Maximum Segment Size 。TCP 提交给 IP 层最大分段大小，不包含 TCP Header 和  TCP Option，只包含 TCP Payload ，MSS 是 TCP 用来限制应用层最大的发送字节数。<br>假设 MTU&#x3D; 1500 byte，那么 MSS &#x3D; 1500- 20(IP Header) -20 (TCP Header) &#x3D; 1460 byte，如果应用层有 2000 byte 发送，那么需要两个切片才可以完成发送，第一个 TCP 切片 &#x3D; 1460，第二个 TCP 切片 &#x3D; 540。</p>
+</li>
+</ul>
+<h1 id="什么是粘包"><a href="#什么是粘包" class="headerlink" title="什么是粘包"></a>什么是粘包</h1><p>上一个包的末尾与下一个包的头部粘在一起。</p>
+<h2 id="为什么会粘包？"><a href="#为什么会粘包？" class="headerlink" title="为什么会粘包？"></a>为什么会粘包？</h2><p>TCP，Transmission Control Protocol。传输控制协议，是一种面向连接的、可靠的、基于字节流的传输层通信协议。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162049748.png" srcset="/img/loading.gif" lazyload></p>
+<p>粘包关系最大的就是基于字节流这个特点。</p>
+<p>字节流可以理解为一个双向的通道里流淌的数据，这个数据其实就是我们常说的二进制数据，简单来说就是一大堆 01 串。这些 01 串之间没有任何边界。</p>
+<p>应用层传到 TCP 协议的数据，不是以消息报为单位向目的主机发送，而是以字节流的方式发送到下游，这些数据可能被切割和组装成各种数据包，接收端收到这些数据包后没有正确还原原来的消息，因此出现粘包现象。</p>
+<h2 id="发送数据的组装"><a href="#发送数据的组装" class="headerlink" title="发送数据的组装"></a>发送数据的组装</h2><p>TCP 切割数据包是为了能顺利通过网络这根水管。相反，还有一个组装的情况。如果前后两次 TCP 发的数据都远小于 MSS，比如就几个字节，每次都单独发送这几个字节，就比较浪费网络 io 。</p>
+<p>TCP的 Nagle 算法优化，目的是为了避免发送小的数据包。</p>
+<p>在 Nagle 算法开启的状态下，数据包在以下两个情况会被发送：</p>
+<ul>
+<li><p>如果包长度达到MSS（或含有Fin包），立刻发送，否则等待下一个包到来；如果下一包到来后两个包的总长度超过MSS的话，就会进行拆分发送；</p>
+</li>
+<li><p>等待超时（一般为200ms），第一个包没到MSS长度，但是又迟迟等不到第二个包的到来，则立即发送。</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162259342.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>由于启动了Nagle算法，msg1 小于 mss ，此时等待200ms内来了一个 msg2，msg1 + msg2 &gt; MSS，因此把 msg2 分为 msg2(1) 和 msg2(2)，msg1 + msg2(1) 包的大小为MSS。此时发送出去。</p>
+</li>
+<li><p>剩余的 msg2(2) 也等到了 msg3，同样 msg2(2) + msg3 &gt; MSS，因此把 msg3分为msg3(1) 和 msg3(2)，msg2(2) + msg3(1) 作为一个包发送。</p>
+</li>
+<li><p>剩余的 msg3(2) 长度不足mss，同时在200ms内没有等到下一个包，等待超时，直接发送。</p>
+</li>
+<li><p>此时三个包虽然在图里颜色不同，但是实际场景中，他们都是一整个 01 串，如果处理开发者把第一个收到的 msg1 + msg2(1) 就当做是一个完整消息进行处理，就会看上去就像是两个包粘在一起，就会导致粘包问题。</p>
+</li>
+</ul>
+<h2 id="关闭Naggle算法就能不发生粘包问题吗？"><a href="#关闭Naggle算法就能不发生粘包问题吗？" class="headerlink" title="关闭Naggle算法就能不发生粘包问题吗？"></a>关闭Naggle算法就能不发生粘包问题吗？</h2><p>就算关闭 Nagle 算法，接收数据端的应用层没有及时读取 TCP Recv Buffer 中的数据，还是会发生粘包。</p>
+<h2 id="怎么处理粘包"><a href="#怎么处理粘包" class="headerlink" title="怎么处理粘包"></a>怎么处理粘包</h2><p>粘包出现的根本原因是不确定消息的边界。接收端在面对”无边无际”的二进制流的时候，根本不知道收了多少 01 才算一个消息。一不小心拿多了就说是粘包。其实粘包根本不是 TCP 的问题，是使用者对于 TCP 的理解有误导致的一个问题。</p>
+<p>只要在发送端每次发送消息的时候给消息带上识别消息边界的信息，接收端就可以根据这些信息识别出消息的边界，从而区分出每个消息。</p>
+<p>常见方法：</p>
+<ul>
+<li><p>加入特殊标志<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162514666.png" srcset="/img/loading.gif" lazyload></p>
+<p>  通过特殊的标志作为头尾，比如当收到了0xfffffe或者回车符，则认为收到了新消息的头，此时继续取数据，直到收到下一个头标志0xfffffe或者尾部标记，才认为是一个完整消息。类似的像 HTTP 协议里当使用 chunked 编码 传输时，使用若干个 chunk 组成消息，最后由一个标明长度为 0 的 chunk 结束。一般除了这个标志位，发送端在发送时还会加入各种校验字段（校验和或者对整段完整数据进行 CRC 之后获得的数据）放在标志位后面，在接收端拿到整段数据后校验下确保它就是发送端发来的完整数据。</p>
+</li>
+<li><p>加入消息长度<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162606151.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p>这个一般配合上面的特殊标志一起使用，在收到头标志时，里面还可以带上消息长度，以此表明在这之后多少 byte 都是属于这个消息的。如果在这之后正好有符合长度的 byte，则取走，作为一个完整消息给应用层使用。在实际场景中，HTTP 中的Content-Length就起了类似的作用，当接收端收到的消息长度小于 Content-Length 时，说明还有些消息没收到。那接收端会一直等，直到拿够了消息或超时。</p>
+<h2 id="UDP-会粘包吗？"><a href="#UDP-会粘包吗？" class="headerlink" title="UDP 会粘包吗？"></a>UDP 会粘包吗？</h2><p>UDP，User Datagram Protocol。用户数据包协议，是面向无连接，不可靠的，基于数据报的传输层通信协议。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162747384.png" srcset="/img/loading.gif" lazyload></p>
+<p>基于数据报是指无论应用层交给 UDP 多长的报文，UDP 都照样发送，即一次发送一个报文。至于如果数据包太长，需要分片，那也是IP层的事情，大不了效率低一些。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。而接收方在接收数据报的时候，也不会像面对 TCP 无穷无尽的二进制流那样不清楚啥时候能结束。正因为基于数据报和基于字节流的差异，TCP 发送端发 10 次字节流数据，而这时候接收端可以分 100 次去取数据，每次取数据的长度可以根据处理能力作调整；但 UDP 发送端发了 10 次数据报，那接收端就要在 10 次收完，且发了多少，就取多少，确保每次都是一个完整的数据报。</p>
+<p>IP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162904331.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里有一个16位总长度，意味着IP报头记录了消息的总长度。</p>
+<p>UDP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163027122.png" srcset="/img/loading.gif" lazyload></p>
+<p>在报头中有16bit用于指示 UDP 数据报文的长度，假设这个长度是 n ，以此作为数据边界。因此在接收端的应用层能清晰地将不同的数据报文区分开，从报头开始取 n 位，就是一个完整的数据报，从而避免粘包和拆包的问题。</p>
+<p>当然，就算没有这个位（16位 UDP 长度），因为 IP 的头部已经包含了数据的总长度信息，此时如果 IP 包（网络层）里放的数据使用的协议是 UDP（传输层），那么这个总长度其实就包含了 UDP 的头部和 UDP 的数据。</p>
+<p>因为 UDP 的头部长度固定为 8 字节（ 1 字节&#x3D; 8 位，8 字节&#x3D; 64 位，上图中除了数据和选项以外的部分），那么这样就很容易的算出 UDP 的数据的长度了。因此说 UDP 的长度信息其实是冗余的。</p>
+<p>TCP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163123335.png" srcset="/img/loading.gif" lazyload></p>
+<p>TCP首部里是没有长度这个信息的，跟UDP类似，同样可以通过下面的公式获得当前包的TCP数据长度。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">TCP</span> <span class="hljs-meta">Data</span> 的长度 = <span class="hljs-built_in">IP</span> 总长度 - <span class="hljs-built_in">IP</span> Header 长度 - TCP Header 长度。<br></code></pre></td></tr></table></figure>
+
+<h2 id="IP层会有粘包问题吗？"><a href="#IP层会有粘包问题吗？" class="headerlink" title="IP层会有粘包问题吗？"></a>IP层会有粘包问题吗？</h2><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163257867.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>如果消息过长，IP层会按 MTU 长度把消息分成 N 个切片，每个切片带有自身在包里的位置（offset）和同样的IP头信息。</p>
+</li>
+<li><p>各个切片在网络中进行传输。每个数据包切片可以在不同的路由中流转，然后在最后的终点汇合后再组装。</p>
+</li>
+<li><p>在接收端收到第一个切片包时会申请一块新内存，创建IP包的数据结构，等待其他切片分包数据到位。</p>
+</li>
+<li><p>等消息全部到位后就把整个消息包给到上层（传输层）进行处理。</p>
+</li>
+</ul>
+<p>IP 层从按长度切片到把切片组装成一个数据包的过程中，都只管运输，都不需要在意消息的边界和内容，都不在意消息内容了，那就不会有粘包一说了。</p>
+
                 
               </div>
             
@@ -300,6 +393,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C/" class="category-chain-item">网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
+      
+    </div>
   
 </div>
 
@@ -309,8 +430,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>计网相关</div>
-      <div>http://bloomivy.github.io/2025/01/27/计网相关/</div>
+      <div>TCP的粘包问题</div>
+      <div>http://bloomivy.github.io/2025/01/27/TCP粘包问题/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +472,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
-                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/01/27/%E8%AE%A1%E7%BD%91%E7%9B%B8%E5%85%B3/">http://bloomivy.github.io/2025/01/27/%E8%AE%A1%E7%BD%91%E7%9B%B8%E5%85%B3/</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/">http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
