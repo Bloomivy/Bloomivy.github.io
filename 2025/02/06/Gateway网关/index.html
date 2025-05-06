@@ -1,0 +1,788 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="/css/my-avatar.css"><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Bloom">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是网关？网关是一个位于微服务架构前端的组件，它充当了所有微服务的入口。网关负责路由请求、负载均衡、安全认证、流量控制、监控和日志记录等任务。网关还可以将多个微服务组合成一个统一的 API，从而简化客户端与微服务之间的通信。 有 Nginx 了为什么还要 SpringCloud Gateway 做网关，两者有啥区别？Nginx 属于前置网关，擅长处理静态资源、SSL 加密和简单的流量管理，但不支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gateway网关">
+<meta property="og:url" content="http://bloomivy.github.io/2025/02/06/Gateway%E7%BD%91%E5%85%B3/index.html">
+<meta property="og:site_name" content="Bloomivy">
+<meta property="og:description" content="什么是网关？网关是一个位于微服务架构前端的组件，它充当了所有微服务的入口。网关负责路由请求、负载均衡、安全认证、流量控制、监控和日志记录等任务。网关还可以将多个微服务组合成一个统一的 API，从而简化客户端与微服务之间的通信。 有 Nginx 了为什么还要 SpringCloud Gateway 做网关，两者有啥区别？Nginx 属于前置网关，擅长处理静态资源、SSL 加密和简单的流量管理，但不支">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-06T06:05:49.000Z">
+<meta property="article:modified_time" content="2025-02-06T06:40:34.534Z">
+<meta property="article:author" content="Bloom">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Gateway网关 - Bloomivy</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sign.css">
+<link rel="stylesheet" href="/css/glassBg.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/part-text.css">
+<link rel="stylesheet" href="/css/my-avator.css">
+<link rel="stylesheet" href="/css/scrollbar.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/icon.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"bloomivy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bloomivy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Gateway网关"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Bloom
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-06 14:05" pubdate>
+          2025年2月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Gateway网关</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="什么是网关？"><a href="#什么是网关？" class="headerlink" title="什么是网关？"></a>什么是网关？</h1><p>网关是一个位于微服务架构前端的组件，它充当了所有微服务的入口。网关负责路由请求、负载均衡、安全认证、流量控制、监控和日志记录等任务。网关还可以将多个微服务组合成一个统一的 API，从而简化客户端与微服务之间的通信。</p>
+<h1 id="有-Nginx-了为什么还要-SpringCloud-Gateway-做网关，两者有啥区别？"><a href="#有-Nginx-了为什么还要-SpringCloud-Gateway-做网关，两者有啥区别？" class="headerlink" title="有 Nginx 了为什么还要 SpringCloud Gateway 做网关，两者有啥区别？"></a>有 Nginx 了为什么还要 SpringCloud Gateway 做网关，两者有啥区别？</h1><p>Nginx 属于前置网关，擅长处理静态资源、SSL 加密和简单的流量管理，但不支持动态路由决策和复杂的业务逻辑。</p>
+<p>Spring Cloud Gateway 是专门为微服务架构设计的，更加贴近业务逻辑，支持动态路由、复杂的过滤器、监控、权限、限流等。</p>
+<p>在生产环境中，通常会把两者结合起来，Nginx 用来处理静态资源和高并发流量，Spring Cloud Gateway 用来实现动态路由、权限控制和业务逻辑处理。</p>
+<h1 id="Gateway的三大核心"><a href="#Gateway的三大核心" class="headerlink" title="Gateway的三大核心"></a>Gateway的三大核心</h1><p>Spring Cloud Gateway 网关的三大核心分别是路由(Route)、断言(Predicate)、过滤器(Filter)。Spring Cloud Gateway 底层使用了高性能的通信框架Netty。</p>
+<ol>
+<li><p>Filter（过滤器）：</p>
+<p> 和Zuul的过滤器在概念上类似，可以使用它拦截和修改请求，并且对上游的响应，进行二次处理。过滤器为org.springframework.cloud.gateway.filter.GatewayFilter类的实例。</p>
+</li>
+<li><p>Route（路由）：</p>
+<p> 网关配置的基本组成模块，和Zuul的路由配置模块类似。一个Route模块由一个 ID，一个目标 URI，一组断言和一组过滤器定义。如果断言为真，则路由匹配，目标URI会被访问。</p>
+</li>
+<li><p>Predicate（断言）：</p>
+<p> 这是一个 Java 8 的 Predicate，可以使用它来匹配来自 HTTP 请求的任何内容，例如 headers 或参数。断言的输入参数类型是一个 ServerWebExchange。</p>
+</li>
+</ol>
+<h2 id="路由配置方式"><a href="#路由配置方式" class="headerlink" title="路由配置方式"></a>路由配置方式</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">api-gateway</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">routes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">url-proxy-1</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">https://blog.csdn.net</span><br>          <span class="hljs-attr">predicates:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/csdn</span><br></code></pre></td></tr></table></figure>
+
+<p>Gateway 中uri有三种配置方式</p>
+<ul>
+<li><p>websocket配置方式： <code>ws://localhost:8000</code></p>
+</li>
+<li><p>http地址配置方式： <code>http://localhost:8000</code></p>
+</li>
+<li><p>Nacos注册中心配置方式： <code>lb://xx-path</code></p>
+</li>
+</ul>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>简而言之，Predicate 就是为了实现一组匹配规则，让请求找到对应的 Route 进行处理。</p>
+<p>Spring Cloud Gateway 创建 Route 对象时，会使用 RoutePredicateFactory 创建 Predicate 对象，Predicate 对象可以赋值给 Route。</p>
+<ul>
+<li><p>Spring Cloud Gateway 包含许多内置的 Route Predicate Factories。</p>
+</li>
+<li><p>所有这些断言都匹配 HTTP 请求的不同属性。</p>
+</li>
+<li><p>多个 Route Predicate Factories 可以通过逻辑与（and）结合起来一起使用。</p>
+</li>
+</ul>
+<p>常用断言：</p>
+<ul>
+<li>匹配权重：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Predicates:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">Weight=group1</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配时间</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Predicates:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">After=2022-10-10T14:25:25.000+8:00[Asia/Shanghai]</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配查询参数</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Predicates:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">Query=username,</span> <span class="hljs-string">abc.</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配请求路径</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Predicates:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/root/**</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配指定名称的请求头</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Predicates:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">Header=X-Request-Id,</span> <span class="hljs-string">\d+</span><br></code></pre></td></tr></table></figure>
+
+<p>如果内置的模板不能满足需求，也可以自定义断言规则，方法也比较简单，按照以下套路即可：</p>
+<ul>
+<li><p>继承 AbstractRoutePredicateFactory 抽象类</p>
+</li>
+<li><p>实现 IRoutePredicateFactory 接口</p>
+</li>
+<li><p>类可以任意命名，但是必须以 RoutePredicateFactory 后缀结尾</p>
+</li>
+</ul>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>网关中的过滤器，有点类似 SpringMVC 里面的拦截器 Interceptor，以及 Servlet 过滤器，其中「pre」和「post」分别会在请求被执行前调用和被执行后调用，用来修改请求和响应信息。</p>
+<p>按类型分，过滤器分为全局默认过滤器、单一内置过滤器和自定义过滤器。</p>
+<h3 id="全局过滤器"><a href="#全局过滤器" class="headerlink" title="全局过滤器"></a>全局过滤器</h3><p>全局过滤器作用于所有的路由，不需要单独配置，我们可以用它来实现很多统一处理的业务需求，比如权限认证，IP 访问限制等。PmHub 中的 AuthFilter.java 就是采用的全局过滤器，只需要实现 GlobalFilter, Ordered 这两个接口就可以了。</p>
+<h3 id="单一内置过滤器"><a href="#单一内置过滤器" class="headerlink" title="单一内置过滤器"></a>单一内置过滤器</h3><p>单一内置过滤器也可以称为网关过滤器，这种过滤器主要作用于单一路由。</p>
+<p>以下为常见单一内置过滤器：</p>
+<ul>
+<li>指定请求头内容</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">filters:</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=X-Request-pmhub,pmhubValue1</span>  <span class="hljs-comment"># 请求头kv，若一头含有多个参数则写一行设置</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=X-Request-pmhub2,pmhubValue2</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>指定请求参数</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">filters:</span><br> <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestParameter=customerId,9527001</span>  <span class="hljs-comment"># 新增请求参数Parameter: k, v</span><br> <span class="hljs-bullet">-</span> <span class="hljs-string">RemoveRequestParameter=customerName</span>  <span class="hljs-comment"># 删除url请求参数customerName，你传递过来也是null</span><br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>指定响应头</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">filters:</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">AddResponseHeader=X-Response-pmhub,</span> <span class="hljs-string">BlueResponse</span>  <span class="hljs-comment"># 新增请求参数X-Response-pmhub并设置为BlueResponse</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>添加响应头信息</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">filters:</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">RewriteResponseBody=application/json,</span> <span class="hljs-string">application/xml</span>  <span class="hljs-comment"># 替换响应体，将所有的application/json替换为application/xml</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h3><p>如何统计接口的调用耗时情况？</p>
+<p>可以利用 Gateway 的自定义过滤器来实现该功能。</p>
+<p>我们创建一个全局 Filter，实现 GlobalFilter, Ordered 两个接口，并在 filter 方法中进行接口访问时间统计：<br>① 在接口调用开始时，记录当前时间戳，并将其存储在 ServerWebExchange 的属性中。</p>
+<p>② 在接口调用结束时，通过 Mono.fromRunnable 的 then 方法，获取存储的开始时间，计算当前时间与开始时间的差值，即为接口调用的耗时。</p>
+<h1 id="Gateway-限流配置"><a href="#Gateway-限流配置" class="headerlink" title="Gateway 限流配置"></a>Gateway 限流配置</h1><p>限流，顾名思义，就是对流量进行限制。通过实施限流措施，我们可以有效地管理系统的每秒请求数（QPS），从而对系统进行保护。</p>
+<p>常见的限流算法包括：计数器算法、漏桶算法（Leaky Bucket）、以及令牌桶算法（Token Bucket）。</p>
+<p>在 Spring Cloud Gateway 中，官方提供了 RequestRateLimiterGatewayFilterFactory 过滤器工具，通过结合 Redis 和 Lua 脚本，可以实现基于令牌桶的限流方式。</p>
+<h1 id="Gateway-黑名单配置"><a href="#Gateway-黑名单配置" class="headerlink" title="Gateway 黑名单配置"></a>Gateway 黑名单配置</h1><p>顾名思义，黑名单就是一个禁止访问的 URL 列表。我们可以创建自定义过滤器 BlackListUrlFilter，并配置黑名单列表 blacklistUrl。当然，如果有其他需求，还可以实现自定义规则的过滤器来满足特定的过滤要求。</p>
+<h1 id="Gateway-白名单配置"><a href="#Gateway-白名单配置" class="headerlink" title="Gateway 白名单配置"></a>Gateway 白名单配置</h1><p>顾名思义，就是允许访问的 URL 地址列表，且无需登录就能访问。例如登录、注册接口，就可以放在自名单里面。爱她，就把她放进来吧（^^）&#x2F;</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Gateway网关</div>
+      <div>http://bloomivy.github.io/2025/02/06/Gateway网关/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Bloom</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              <!-- <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/02/06/Gateway%E7%BD%91%E5%85%B3/">http://bloomivy.github.io/2025/02/06/Gateway%E7%BD%91%E5%85%B3/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                    -->
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/02/06/HTTP%E4%B8%8ERPC/" title="HTTP与RPC">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTTP与RPC</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/06/Spring%E4%B8%AD%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E5%A4%B1%E6%95%88%E5%8E%9F%E5%9B%A0/" title="Spring中声明式注解失效原因">
+                        <span class="hidden-mobile">Spring中声明式注解失效原因</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/vvd_js/duration.js"></script> </div> <div class="footer-hitokoto"><a id="hitokotoa" href="#" target="_blank" rel="nofollow noopener noreferrer"><span id="hitokoto"></span></a></div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/sign.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/duration.js"></script>
+<script src="/js/codeType.js"></script>
+<script src="/js/hitokoto.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

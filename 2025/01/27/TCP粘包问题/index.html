@@ -1,0 +1,771 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="/css/my-avatar.css"><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Bloom">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="四层网络模型 四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。  为什么要将数据切片？把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP的粘包问题">
+<meta property="og:url" content="http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Bloomivy">
+<meta property="og:description" content="四层网络模型 四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。  为什么要将数据切片？把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161735361.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161910183.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162049748.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162259342.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162514666.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162606151.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162747384.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162904331.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163027122.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163123335.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163257867.png">
+<meta property="article:published_time" content="2025-01-27T06:01:52.000Z">
+<meta property="article:modified_time" content="2025-02-06T08:33:40.321Z">
+<meta property="article:author" content="Bloom">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png">
+  
+  
+  
+  <title>TCP的粘包问题 - Bloomivy</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sign.css">
+<link rel="stylesheet" href="/css/glassBg.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/part-text.css">
+<link rel="stylesheet" href="/css/my-avator.css">
+<link rel="stylesheet" href="/css/scrollbar.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/icon.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"bloomivy.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bloomivy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="TCP的粘包问题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Bloom
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-27 14:01" pubdate>
+          2025年1月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TCP的粘包问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="四层网络模型"><a href="#四层网络模型" class="headerlink" title="四层网络模型"></a>四层网络模型</h1><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161641255.png" srcset="/img/loading.gif" lazyload></p>
+<p>四层网络模型每层各司其职，消息在进入每一层时都会多加一个报头，每多一个报头可以理解为数据报多戴一顶帽子。这个报头上面记录着消息从哪来，到哪去，以及消息多长等信息。比如，mac头部记录的是硬件的唯一地址，IP头记录的是从哪来和到哪去，传输层头记录到是到达目的主机后具体去哪个进程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161735361.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="为什么要将数据切片？"><a href="#为什么要将数据切片？" class="headerlink" title="为什么要将数据切片？"></a>为什么要将数据切片？</h1><p>把网络比喻为一个水管，是有一定的粗细的，这个粗细由网络接口层（数据链路层）提供给网络层，一般认为是的MTU（1500），直接传入整个消息，会超过水管的最大承受范围，那么，就需要进行切片，成为一个个数据包，这样消息才能正常通过“水管”。</p>
+<h1 id="MTU-与-MSS-区别"><a href="#MTU-与-MSS-区别" class="headerlink" title="MTU 与 MSS 区别"></a>MTU 与 MSS 区别</h1><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206161910183.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>MTU: Maximum Transmit Unit，最大传输单元。 由网络接口层（数据链路层）提供给网络层最大一次传输数据的大小；一般 MTU&#x3D;1500 Byte。<br>假设IP层有 &lt;&#x3D; 1500 byte 需要发送，只需要一个 IP 包就可以完成发送任务；假设 IP 层有&gt; 1500 byte 数据需要发送，需要分片才能完成发送，分片后的 IP Header ID 相同。</p>
+</li>
+<li><p>MSS：Maximum Segment Size 。TCP 提交给 IP 层最大分段大小，不包含 TCP Header 和  TCP Option，只包含 TCP Payload ，MSS 是 TCP 用来限制应用层最大的发送字节数。<br>假设 MTU&#x3D; 1500 byte，那么 MSS &#x3D; 1500- 20(IP Header) -20 (TCP Header) &#x3D; 1460 byte，如果应用层有 2000 byte 发送，那么需要两个切片才可以完成发送，第一个 TCP 切片 &#x3D; 1460，第二个 TCP 切片 &#x3D; 540。</p>
+</li>
+</ul>
+<h1 id="什么是粘包"><a href="#什么是粘包" class="headerlink" title="什么是粘包"></a>什么是粘包</h1><p>上一个包的末尾与下一个包的头部粘在一起。</p>
+<h2 id="为什么会粘包？"><a href="#为什么会粘包？" class="headerlink" title="为什么会粘包？"></a>为什么会粘包？</h2><p>TCP，Transmission Control Protocol。传输控制协议，是一种面向连接的、可靠的、基于字节流的传输层通信协议。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162049748.png" srcset="/img/loading.gif" lazyload></p>
+<p>粘包关系最大的就是基于字节流这个特点。</p>
+<p>字节流可以理解为一个双向的通道里流淌的数据，这个数据其实就是我们常说的二进制数据，简单来说就是一大堆 01 串。这些 01 串之间没有任何边界。</p>
+<p>应用层传到 TCP 协议的数据，不是以消息报为单位向目的主机发送，而是以字节流的方式发送到下游，这些数据可能被切割和组装成各种数据包，接收端收到这些数据包后没有正确还原原来的消息，因此出现粘包现象。</p>
+<h2 id="发送数据的组装"><a href="#发送数据的组装" class="headerlink" title="发送数据的组装"></a>发送数据的组装</h2><p>TCP 切割数据包是为了能顺利通过网络这根水管。相反，还有一个组装的情况。如果前后两次 TCP 发的数据都远小于 MSS，比如就几个字节，每次都单独发送这几个字节，就比较浪费网络 io 。</p>
+<p>TCP的 Nagle 算法优化，目的是为了避免发送小的数据包。</p>
+<p>在 Nagle 算法开启的状态下，数据包在以下两个情况会被发送：</p>
+<ul>
+<li><p>如果包长度达到MSS（或含有Fin包），立刻发送，否则等待下一个包到来；如果下一包到来后两个包的总长度超过MSS的话，就会进行拆分发送；</p>
+</li>
+<li><p>等待超时（一般为200ms），第一个包没到MSS长度，但是又迟迟等不到第二个包的到来，则立即发送。</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162259342.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>由于启动了Nagle算法，msg1 小于 mss ，此时等待200ms内来了一个 msg2，msg1 + msg2 &gt; MSS，因此把 msg2 分为 msg2(1) 和 msg2(2)，msg1 + msg2(1) 包的大小为MSS。此时发送出去。</p>
+</li>
+<li><p>剩余的 msg2(2) 也等到了 msg3，同样 msg2(2) + msg3 &gt; MSS，因此把 msg3分为msg3(1) 和 msg3(2)，msg2(2) + msg3(1) 作为一个包发送。</p>
+</li>
+<li><p>剩余的 msg3(2) 长度不足mss，同时在200ms内没有等到下一个包，等待超时，直接发送。</p>
+</li>
+<li><p>此时三个包虽然在图里颜色不同，但是实际场景中，他们都是一整个 01 串，如果处理开发者把第一个收到的 msg1 + msg2(1) 就当做是一个完整消息进行处理，就会看上去就像是两个包粘在一起，就会导致粘包问题。</p>
+</li>
+</ul>
+<h2 id="关闭Naggle算法就能不发生粘包问题吗？"><a href="#关闭Naggle算法就能不发生粘包问题吗？" class="headerlink" title="关闭Naggle算法就能不发生粘包问题吗？"></a>关闭Naggle算法就能不发生粘包问题吗？</h2><p>就算关闭 Nagle 算法，接收数据端的应用层没有及时读取 TCP Recv Buffer 中的数据，还是会发生粘包。</p>
+<h2 id="怎么处理粘包"><a href="#怎么处理粘包" class="headerlink" title="怎么处理粘包"></a>怎么处理粘包</h2><p>粘包出现的根本原因是不确定消息的边界。接收端在面对”无边无际”的二进制流的时候，根本不知道收了多少 01 才算一个消息。一不小心拿多了就说是粘包。其实粘包根本不是 TCP 的问题，是使用者对于 TCP 的理解有误导致的一个问题。</p>
+<p>只要在发送端每次发送消息的时候给消息带上识别消息边界的信息，接收端就可以根据这些信息识别出消息的边界，从而区分出每个消息。</p>
+<p>常见方法：</p>
+<ul>
+<li><p>加入特殊标志<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162514666.png" srcset="/img/loading.gif" lazyload></p>
+<p>  通过特殊的标志作为头尾，比如当收到了0xfffffe或者回车符，则认为收到了新消息的头，此时继续取数据，直到收到下一个头标志0xfffffe或者尾部标记，才认为是一个完整消息。类似的像 HTTP 协议里当使用 chunked 编码 传输时，使用若干个 chunk 组成消息，最后由一个标明长度为 0 的 chunk 结束。一般除了这个标志位，发送端在发送时还会加入各种校验字段（校验和或者对整段完整数据进行 CRC 之后获得的数据）放在标志位后面，在接收端拿到整段数据后校验下确保它就是发送端发来的完整数据。</p>
+</li>
+<li><p>加入消息长度<br><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162606151.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p>这个一般配合上面的特殊标志一起使用，在收到头标志时，里面还可以带上消息长度，以此表明在这之后多少 byte 都是属于这个消息的。如果在这之后正好有符合长度的 byte，则取走，作为一个完整消息给应用层使用。在实际场景中，HTTP 中的Content-Length就起了类似的作用，当接收端收到的消息长度小于 Content-Length 时，说明还有些消息没收到。那接收端会一直等，直到拿够了消息或超时。</p>
+<h2 id="UDP-会粘包吗？"><a href="#UDP-会粘包吗？" class="headerlink" title="UDP 会粘包吗？"></a>UDP 会粘包吗？</h2><p>UDP，User Datagram Protocol。用户数据包协议，是面向无连接，不可靠的，基于数据报的传输层通信协议。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162747384.png" srcset="/img/loading.gif" lazyload></p>
+<p>基于数据报是指无论应用层交给 UDP 多长的报文，UDP 都照样发送，即一次发送一个报文。至于如果数据包太长，需要分片，那也是IP层的事情，大不了效率低一些。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。而接收方在接收数据报的时候，也不会像面对 TCP 无穷无尽的二进制流那样不清楚啥时候能结束。正因为基于数据报和基于字节流的差异，TCP 发送端发 10 次字节流数据，而这时候接收端可以分 100 次去取数据，每次取数据的长度可以根据处理能力作调整；但 UDP 发送端发了 10 次数据报，那接收端就要在 10 次收完，且发了多少，就取多少，确保每次都是一个完整的数据报。</p>
+<p>IP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206162904331.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里有一个16位总长度，意味着IP报头记录了消息的总长度。</p>
+<p>UDP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163027122.png" srcset="/img/loading.gif" lazyload></p>
+<p>在报头中有16bit用于指示 UDP 数据报文的长度，假设这个长度是 n ，以此作为数据边界。因此在接收端的应用层能清晰地将不同的数据报文区分开，从报头开始取 n 位，就是一个完整的数据报，从而避免粘包和拆包的问题。</p>
+<p>当然，就算没有这个位（16位 UDP 长度），因为 IP 的头部已经包含了数据的总长度信息，此时如果 IP 包（网络层）里放的数据使用的协议是 UDP（传输层），那么这个总长度其实就包含了 UDP 的头部和 UDP 的数据。</p>
+<p>因为 UDP 的头部长度固定为 8 字节（ 1 字节&#x3D; 8 位，8 字节&#x3D; 64 位，上图中除了数据和选项以外的部分），那么这样就很容易的算出 UDP 的数据的长度了。因此说 UDP 的长度信息其实是冗余的。</p>
+<p>TCP报头：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163123335.png" srcset="/img/loading.gif" lazyload></p>
+<p>TCP首部里是没有长度这个信息的，跟UDP类似，同样可以通过下面的公式获得当前包的TCP数据长度。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">TCP</span> <span class="hljs-meta">Data</span> 的长度 = <span class="hljs-built_in">IP</span> 总长度 - <span class="hljs-built_in">IP</span> Header 长度 - TCP Header 长度。<br></code></pre></td></tr></table></figure>
+
+<h2 id="IP层会有粘包问题吗？"><a href="#IP层会有粘包问题吗？" class="headerlink" title="IP层会有粘包问题吗？"></a>IP层会有粘包问题吗？</h2><p><img src="https://cdn.jsdelivr.net/gh/Bloomivy/pic/20250206163257867.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>如果消息过长，IP层会按 MTU 长度把消息分成 N 个切片，每个切片带有自身在包里的位置（offset）和同样的IP头信息。</p>
+</li>
+<li><p>各个切片在网络中进行传输。每个数据包切片可以在不同的路由中流转，然后在最后的终点汇合后再组装。</p>
+</li>
+<li><p>在接收端收到第一个切片包时会申请一块新内存，创建IP包的数据结构，等待其他切片分包数据到位。</p>
+</li>
+<li><p>等消息全部到位后就把整个消息包给到上层（传输层）进行处理。</p>
+</li>
+</ul>
+<p>IP 层从按长度切片到把切片组装成一个数据包的过程中，都只管运输，都不需要在意消息的边界和内容，都不在意消息内容了，那就不会有粘包一说了。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C/" class="category-chain-item">网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TCP的粘包问题</div>
+      <div>http://bloomivy.github.io/2025/01/27/TCP粘包问题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Bloom</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              <!-- <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/">http://bloomivy.github.io/2025/01/27/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                    -->
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/27/Java%E7%9A%84%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" title="Java的代理模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java的代理模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/26/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" title="回溯算法">
+                        <span class="hidden-mobile">回溯算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/vvd_js/duration.js"></script> </div> <div class="footer-hitokoto"><a id="hitokotoa" href="#" target="_blank" rel="nofollow noopener noreferrer"><span id="hitokoto"></span></a></div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/sign.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/duration.js"></script>
+<script src="/js/codeType.js"></script>
+<script src="/js/hitokoto.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
