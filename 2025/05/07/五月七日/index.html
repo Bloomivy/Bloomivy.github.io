@@ -19,21 +19,21 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法部分：完成单调栈例题部分  496. 739. 503单调栈模板： 123456789101112131415161718int[] calculateGreaterElement(int[] nums) &#123;    int n &#x3D; nums.length;    &#x2F;&#x2F; 存放答案的数组    int[] res &#x3D; new int[n];    Stack&lt;Integer&gt;">
+    <meta name="description" content="关于八股：今天计划推进完成JVM部分并进行小结，JVM作为JAVA编程中比较重要的一个模块，主要涉及到的知识点有如下模块：类加载、运行时内存区、执行引擎。其中类加载部分主要涉及到类的生命周期、类的加载方式、双亲委派等内容。运行时内存区细分可分为堆、栈、方法区、PC、本地方法栈。关于内存部分的内容主要涉及对象的内存分配、对象的创建与销毁，JVM访问对象主要有两种方式：句柄与直接指针。关于内存溢出与内">
 <meta property="og:type" content="article">
-<meta property="og:title" content="五月六日">
-<meta property="og:url" content="http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/index.html">
+<meta property="og:title" content="五月七日">
+<meta property="og:url" content="http://bloomivy.github.io/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="算法部分：完成单调栈例题部分  496. 739. 503单调栈模板： 123456789101112131415161718int[] calculateGreaterElement(int[] nums) &#123;    int n &#x3D; nums.length;    &#x2F;&#x2F; 存放答案的数组    int[] res &#x3D; new int[n];    Stack&lt;Integer&gt;">
+<meta property="og:description" content="关于八股：今天计划推进完成JVM部分并进行小结，JVM作为JAVA编程中比较重要的一个模块，主要涉及到的知识点有如下模块：类加载、运行时内存区、执行引擎。其中类加载部分主要涉及到类的生命周期、类的加载方式、双亲委派等内容。运行时内存区细分可分为堆、栈、方法区、PC、本地方法栈。关于内存部分的内容主要涉及对象的内存分配、对象的创建与销毁，JVM访问对象主要有两种方式：句柄与直接指针。关于内存溢出与内">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-06T07:05:11.000Z">
-<meta property="article:modified_time" content="2025-05-06T09:23:16.924Z">
+<meta property="article:published_time" content="2025-05-07T07:26:31.000Z">
+<meta property="article:modified_time" content="2025-05-07T14:35:14.967Z">
 <meta property="article:author" content="Bloom">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>五月六日 - Bloomivy</title>
+  <title>五月七日 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="五月六日"></span>
+            <span id="subtitle" data-typed-text="五月七日"></span>
           
         </div>
 
@@ -229,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-06 15:05" pubdate>
-          2025年5月6日 下午
+        <time datetime="2025-05-07 15:26" pubdate>
+          2025年5月7日 下午
         </time>
       </span>
     
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          670 字
+          613 字
         
       </span>
     
@@ -289,16 +289,19 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">五月六日</h1>
+            <h1 id="seo-header">五月七日</h1>
             
             
               <div class="markdown-body">
                 
-                <p>算法部分：完成单调栈例题部分  496. 739. 503<br>单调栈模板：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span>[] calculateGreaterElement(<span class="hljs-type">int</span>[] nums) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>    <span class="hljs-comment">// 存放答案的数组</span><br>    <span class="hljs-type">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>    Stack&lt;Integer&gt; s = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;(); <br>    <span class="hljs-comment">// 倒着往栈里放</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>        <span class="hljs-comment">// 判定个子高矮</span><br>        <span class="hljs-keyword">while</span> (!s.isEmpty() &amp;&amp; s.peek() &lt;= nums[i]) &#123;<br>            <span class="hljs-comment">// 矮个起开，反正也被挡着了。。。</span><br>            s.pop();<br>        &#125;<br>        <span class="hljs-comment">// nums[i] 身后的更大元素</span><br>        res[i] = s.isEmpty() ? -<span class="hljs-number">1</span> : s.peek();<br>        s.push(nums[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>关于栈的习题：71. 143. 20.  155.</p>
-<p>JVM主要结构：执行引擎，运行时数据区、类加载器<br>内存区主要划分：堆、虚拟机栈、本地方法栈、方法区、PC<br>对象创建过程：new一个对象时，先在本地变量池中查找类的符号引用，检查类是否已经加载、解析、初始化，如果没有会先进行类加载；已经加载JVM会为对象分配内存并初始化(初始值、对象头、init())<br>对象销毁：对象不被引用后变成垃圾。通过可达性算法分析是否回收对象<br><code>java -XX:+PrintGCDetails -version</code><br>查看GC回收器<br>堆内存的分配策略：指针碰撞和空闲列表。<br>指针碰撞适用于管理简单、碎片化较少的内存区域，如年轻代；而空闲列表适用于内存碎片化较严重或对象大小差异较大的场景如老年代。<br>指针碰撞：分配内存时，JVM维护一个指针，指向下一个可用地址，每次分配时指针后移即可。<br>空闲列表：JVM维护一个列表，记录堆中为占用的内存块，申请内存时，遍历列表。<br>内存分配竞争问题：当两个线程分别为新对象分配内存时，可能出现内存竞争问题，为了解决该问题，JVM为每个线程保留了一小部分空闲空间TLAB也就是线程本地分配缓冲区，用于存放该线程分配的对象。线程需要分配对象时，优先从TLAB中分配<br>对象的内存布局：对象头、实例数据、对齐填充<br>对象头主要包括mark word、类型指针、数组记录数据。mark word存储对象运行时的状态信息：GC标记、锁、哈希值等(64位OS占8字节、32位OS占4字节)；类型指针指向Class对象，用于支持多态和方法调用；如果对象是数组类型，还会有一个额外的数组长度字段。占 4 个字节。指针压缩开启后，类型指针占4字节。(JDK8中默认开启)<br>new Object()对象内存大小：8+4+4&#x3D;16</p>
+                <p>关于八股：今天计划推进完成JVM部分并进行小结，JVM作为JAVA编程中比较重要的一个模块，主要涉及到的知识点有如下模块：类加载、运行时内存区、执行引擎。其中类加载部分主要涉及到类的生命周期、类的加载方式、双亲委派等内容。运行时内存区细分可分为堆、栈、方法区、PC、本地方法栈。关于内存部分的内容主要涉及对象的内存分配、对象的创建与销毁，JVM访问对象主要有两种方式：句柄与直接指针。关于内存溢出与内存泄漏，对象的四种引用(强、软、弱、虚)此外就是主要关于堆的GC部分。GC主要考察GC的方法：标记清除、标记整理、标记复制。主要的垃圾回收器：Serial、ParNew、CMS、G1、ZGC。垃圾的判定：可达性算法，三色标记法用于垃圾回收时辅助，三色标记法会导致对象消失和漏标问题，漏标问题可以通过再次标记解决，对象消失问题主要有两个方向：动态插入、快照。CMS与G1采用了这两种方式。此外为JVM调优部分的实际运用部分，需要进行实操。</p>
+<p>算法：<br>二叉树通过前序、中序、后序遍历数组进行构建。主要思路：将中序遍历的数组借助hashmap存储，用于定位根节点位置，使用前序(后序)数组做根节点，在中序中查找对应的index并将其分为左、中、右的格式，将问题拆解为子问题递归求解。<br>105. 106. 654. </p>
+<p>二叉树的最近公共祖先问题：<br>模板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义：在以 root 为根的二叉树中寻找值为 val1 或 val2 的节点</span><br>TreeNode <span class="hljs-title function_">find</span><span class="hljs-params">(TreeNode root, <span class="hljs-type">int</span> val1, <span class="hljs-type">int</span> val2)</span> &#123;<br>    <span class="hljs-comment">// base case</span><br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>    <span class="hljs-comment">// 前序位置，看看 root 是不是目标值</span><br>    <span class="hljs-keyword">if</span> (root.val == val1 || root.val == val2) &#123;<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br>    <span class="hljs-comment">// 去左右子树寻找</span><br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> find(root.left, val1, val2);<br>    <span class="hljs-type">TreeNode</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> find(root.right, val1, val2);<br><br>    <span class="hljs-comment">// 后序位置，已经知道左右子树是否存在目标值</span><br>    <span class="hljs-keyword">return</span> left != <span class="hljs-literal">null</span> ? left : right;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>二叉树的最近公共祖先 236.<br>129. 257. </p>
+<ol start="199">
+<li>二叉树的右视图<br>使用DFS，右视图即要求最右侧的节点，遍历时先遍历右侧节点再遍历左侧，同时借助depth记录深度，同一深度将最右侧加入ans即可。</li>
+</ol>
 
                 
               </div>
@@ -316,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>五月六日</div>
-      <div>http://bloomivy.github.io/2025/05/06/五月六日/</div>
+      <div>五月七日</div>
+      <div>http://bloomivy.github.io/2025/05/07/五月七日/</div>
     </div>
     <div class="license-meta">
       
@@ -329,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月6日</div>
+          <div>2025年5月7日</div>
         </div>
       
       
@@ -358,7 +361,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
-                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/">http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/">http://bloomivy.github.io/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -368,9 +371,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/" title="五月七日">
+                      <a href="/2025/05/13/5%E6%9C%8813/" title="5月13">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">五月七日</span>
+                        <span class="hidden-mobile">5月13</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -378,8 +381,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/02/%E4%BA%94%E6%9C%88%E4%BA%8C%E6%97%A5/" title="五月二日">
-                        <span class="hidden-mobile">五月二日</span>
+                      <a href="/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/" title="五月六日">
+                        <span class="hidden-mobile">五月六日</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

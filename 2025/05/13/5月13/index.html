@@ -19,21 +19,21 @@
   <meta name="author" content="Bloom">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法部分：完成单调栈例题部分  496. 739. 503单调栈模板： 123456789101112131415161718int[] calculateGreaterElement(int[] nums) &#123;    int n &#x3D; nums.length;    &#x2F;&#x2F; 存放答案的数组    int[] res &#x3D; new int[n];    Stack&lt;Integer&gt;">
+    <meta name="description" content="算法：410 与 1011 为同一二分查找题板思路： 二者均为求数组分割为连续子数组后，多个连续子数组之和的最小值，连续子数组数已给出。二分：左边界即数组的最大值 右边界为数组累计和+1  target为数组分割个数搜索的值为划分区间个数：记个数为F(x)，x为子数组的最大值。则可以得出以下格式： 12345678910111213f(int[] nums, int x) &#123;    in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="五月六日">
-<meta property="og:url" content="http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/index.html">
+<meta property="og:title" content="5月13">
+<meta property="og:url" content="http://bloomivy.github.io/2025/05/13/5%E6%9C%8813/index.html">
 <meta property="og:site_name" content="Bloomivy">
-<meta property="og:description" content="算法部分：完成单调栈例题部分  496. 739. 503单调栈模板： 123456789101112131415161718int[] calculateGreaterElement(int[] nums) &#123;    int n &#x3D; nums.length;    &#x2F;&#x2F; 存放答案的数组    int[] res &#x3D; new int[n];    Stack&lt;Integer&gt;">
+<meta property="og:description" content="算法：410 与 1011 为同一二分查找题板思路： 二者均为求数组分割为连续子数组后，多个连续子数组之和的最小值，连续子数组数已给出。二分：左边界即数组的最大值 右边界为数组累计和+1  target为数组分割个数搜索的值为划分区间个数：记个数为F(x)，x为子数组的最大值。则可以得出以下格式： 12345678910111213f(int[] nums, int x) &#123;    in">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-06T07:05:11.000Z">
-<meta property="article:modified_time" content="2025-05-06T09:23:16.924Z">
+<meta property="article:published_time" content="2025-05-13T07:45:40.000Z">
+<meta property="article:modified_time" content="2025-05-13T08:46:54.657Z">
 <meta property="article:author" content="Bloom">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>五月六日 - Bloomivy</title>
+  <title>5月13 - Bloomivy</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="五月六日"></span>
+            <span id="subtitle" data-typed-text="5月13"></span>
           
         </div>
 
@@ -229,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-06 15:05" pubdate>
-          2025年5月6日 下午
+        <time datetime="2025-05-13 15:45" pubdate>
+          2025年5月13日 下午
         </time>
       </span>
     
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          670 字
+          254 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          6 分钟
+          3 分钟
         
       </span>
     
@@ -289,16 +289,17 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">五月六日</h1>
+            <h1 id="seo-header">5月13</h1>
             
             
               <div class="markdown-body">
                 
-                <p>算法部分：完成单调栈例题部分  496. 739. 503<br>单调栈模板：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span>[] calculateGreaterElement(<span class="hljs-type">int</span>[] nums) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>    <span class="hljs-comment">// 存放答案的数组</span><br>    <span class="hljs-type">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>    Stack&lt;Integer&gt; s = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;(); <br>    <span class="hljs-comment">// 倒着往栈里放</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>        <span class="hljs-comment">// 判定个子高矮</span><br>        <span class="hljs-keyword">while</span> (!s.isEmpty() &amp;&amp; s.peek() &lt;= nums[i]) &#123;<br>            <span class="hljs-comment">// 矮个起开，反正也被挡着了。。。</span><br>            s.pop();<br>        &#125;<br>        <span class="hljs-comment">// nums[i] 身后的更大元素</span><br>        res[i] = s.isEmpty() ? -<span class="hljs-number">1</span> : s.peek();<br>        s.push(nums[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <p>算法：<br>410 与 1011 为同一二分查找题板<br>思路： 二者均为求数组分割为连续子数组后，多个连续子数组之和的最小值，连续子数组数已给出。<br>二分：左边界即数组的最大值 右边界为数组累计和+1  target为数组分割个数<br>搜索的值为划分区间个数：记个数为F(x)，x为子数组的最大值。则可以得出以下格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">f(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> x) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; nums.length;) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">cap</span> <span class="hljs-operator">=</span> x;<br>        <span class="hljs-keyword">while</span> (i &lt; nums.length) &#123;<br>            <span class="hljs-keyword">if</span> (nums[i] &gt; cap) <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">else</span> cap -= nums[i];<br>            i ++;<br>        &#125;<br>        count ++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> count;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>二叉搜索左侧边界值(左闭右开)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-title function_">find</span> <span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> nums.length;<br>    <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right-left)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span> (mid == target) &#123;<br>            right = mid;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mid &gt; target) &#123;<br>            right = mid;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mid &lt; target) &#123;<br>            left = mid +<span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> left;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>关于栈的习题：71. 143. 20.  155.</p>
-<p>JVM主要结构：执行引擎，运行时数据区、类加载器<br>内存区主要划分：堆、虚拟机栈、本地方法栈、方法区、PC<br>对象创建过程：new一个对象时，先在本地变量池中查找类的符号引用，检查类是否已经加载、解析、初始化，如果没有会先进行类加载；已经加载JVM会为对象分配内存并初始化(初始值、对象头、init())<br>对象销毁：对象不被引用后变成垃圾。通过可达性算法分析是否回收对象<br><code>java -XX:+PrintGCDetails -version</code><br>查看GC回收器<br>堆内存的分配策略：指针碰撞和空闲列表。<br>指针碰撞适用于管理简单、碎片化较少的内存区域，如年轻代；而空闲列表适用于内存碎片化较严重或对象大小差异较大的场景如老年代。<br>指针碰撞：分配内存时，JVM维护一个指针，指向下一个可用地址，每次分配时指针后移即可。<br>空闲列表：JVM维护一个列表，记录堆中为占用的内存块，申请内存时，遍历列表。<br>内存分配竞争问题：当两个线程分别为新对象分配内存时，可能出现内存竞争问题，为了解决该问题，JVM为每个线程保留了一小部分空闲空间TLAB也就是线程本地分配缓冲区，用于存放该线程分配的对象。线程需要分配对象时，优先从TLAB中分配<br>对象的内存布局：对象头、实例数据、对齐填充<br>对象头主要包括mark word、类型指针、数组记录数据。mark word存储对象运行时的状态信息：GC标记、锁、哈希值等(64位OS占8字节、32位OS占4字节)；类型指针指向Class对象，用于支持多态和方法调用；如果对象是数组类型，还会有一个额外的数组长度字段。占 4 个字节。指针压缩开启后，类型指针占4字节。(JDK8中默认开启)<br>new Object()对象内存大小：8+4+4&#x3D;16</p>
+<p>k个一组反转链表 25.<br>思路：先获取链表长度，将链表按k个一组先进行组内反转，再进行组件反转。</p>
 
                 
               </div>
@@ -316,8 +317,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>五月六日</div>
-      <div>http://bloomivy.github.io/2025/05/06/五月六日/</div>
+      <div>5月13</div>
+      <div>http://bloomivy.github.io/2025/05/13/5月13/</div>
     </div>
     <div class="license-meta">
       
@@ -329,7 +330,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月6日</div>
+          <div>2025年5月13日</div>
         </div>
       
       
@@ -358,7 +359,7 @@
 
               <!-- <p class="note note-warning">
                 <strong>本文作者: </strong><a href="/">Bloomivy</a> <br>
-                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/">http://bloomivy.github.io/2025/05/06/%E4%BA%94%E6%9C%88%E5%85%AD%E6%97%A5/</a> <br>
+                <strong>本文链接: </strong><a href="http://bloomivy.github.io/2025/05/13/5%E6%9C%8813/">http://bloomivy.github.io/2025/05/13/5%E6%9C%8813/</a> <br>
                 <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
                    </p>
                     -->
@@ -368,9 +369,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/" title="五月七日">
+                      <a href="/2025/05/14/%E4%BA%94%E6%9C%8814/" title="五月14">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">五月七日</span>
+                        <span class="hidden-mobile">五月14</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -378,8 +379,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/02/%E4%BA%94%E6%9C%88%E4%BA%8C%E6%97%A5/" title="五月二日">
-                        <span class="hidden-mobile">五月二日</span>
+                      <a href="/2025/05/07/%E4%BA%94%E6%9C%88%E4%B8%83%E6%97%A5/" title="五月七日">
+                        <span class="hidden-mobile">五月七日</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
